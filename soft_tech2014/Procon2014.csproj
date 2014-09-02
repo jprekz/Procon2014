@@ -7,8 +7,8 @@
     <ProjectGuid>{04C7A09F-22F0-4C3E-9C45-AAE745772FAA}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>soft_tech2014</RootNamespace>
-    <AssemblyName>soft_tech2014</AssemblyName>
+    <RootNamespace>Procon2014</RootNamespace>
+    <AssemblyName>Procon2014</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -91,6 +91,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
