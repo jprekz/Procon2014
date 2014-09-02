@@ -21,16 +21,16 @@ namespace soft_tech2014
             InitializeComponent();
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void initialManagement() //Form1.Loadでしていた処理をppmファイルのパスをtextBox1.Textから指定するためにbutton1_Clickの中に移動した
         {
             ppmedit ppme = new ppmedit();
-            byte[,] sorted = ppme.picsortToByte("C:/Users/J/Documents/procon2014/prob03.ppm");
+            byte[,] sorted = ppme.picsortToByte(this.textBox1.Text);
             byte[,] cells = (byte[,])sorted.Clone();
             for (int y = 0; y != cells.GetLength(1); y++)
             {
                 for (int x = 0; x != cells.GetLength(0); x++)
                 {
-                    byte buf = sorted[x,y];
+                    byte buf = sorted[x, y];
                     cells[buf / 16, buf % 16] = (byte)(x * 16 + y);
                 }
             }
@@ -41,6 +41,7 @@ namespace soft_tech2014
         private void button1_Click(object sender, EventArgs e)
         {
             button1.Enabled = false;
+            initialManagement();
             sw = System.Diagnostics.Stopwatch.StartNew();
             Thread t = new Thread(new ThreadStart(SolveThread));
             t.IsBackground = true;
