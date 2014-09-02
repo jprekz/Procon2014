@@ -21,10 +21,12 @@ namespace soft_tech2014
             InitializeComponent();
         }
 
-        private void initialManagement() //Form1.Loadでしていた処理をppmファイルのパスをtextBox1.Textから指定するためにbutton1_Clickの中に移動した
+        private void initializeManagement()
         {
             ppmedit ppme = new ppmedit();
-            byte[,] sorted = ppme.picsortToByte(this.textBox1.Text);
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.ShowDialog();
+            byte[,] sorted = ppme.picsortToByte(ofd.FileName);
             byte[,] cells = (byte[,])sorted.Clone();
             for (int y = 0; y != cells.GetLength(1); y++)
             {
@@ -38,10 +40,10 @@ namespace soft_tech2014
             p = new Puzzle(cells, ppme.ppmd.picsetrepeat, ppme.ppmd.picsetrate, ppme.ppmd.picmoverate);
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void buttonStart_Click(object sender, EventArgs e)
         {
-            button1.Enabled = false;
-            initialManagement();
+            buttonStart.Enabled = false;
+            initializeManagement();
             sw = System.Diagnostics.Stopwatch.StartNew();
             Thread t = new Thread(new ThreadStart(SolveThread));
             t.IsBackground = true;
@@ -69,7 +71,7 @@ namespace soft_tech2014
             if (p.Done)
             {
                 this.Text = "Done";
-                this.button1.Enabled = true;
+                this.buttonStart.Enabled = true;
             }
             this.Text += " " + sw.Elapsed;
         }
