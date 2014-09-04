@@ -428,7 +428,6 @@ namespace ProgramingContest3
                     piecepattern[6, pieceY * pd.picdivision[0] + pieceX] = piecearound[piecepattern[6, pieceY * pd.picdivision[0] + pieceX + 1], 2, 0];
                 }
             }
-
             piecepattern[7, pd.picdivision[0] * pd.picdivision[1] - 1] = fpnumber;
             for (int pieceY = pd.picdivision[1] - 2; pieceY > -1; pieceY--)
             {
@@ -442,6 +441,7 @@ namespace ProgramingContest3
                     piecepattern[7, pieceY * pd.picdivision[0] + pieceX % pd.picdivision[0]] = piecearound[piecepattern[7, (pieceY * pd.picdivision[0] + pieceX % pd.picdivision[0]) + pd.picdivision[0]], 0, 0];
                 }
             }
+
             return piecepattern;
         }
     }
