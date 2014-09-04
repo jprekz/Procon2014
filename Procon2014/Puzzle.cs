@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-namespace soft_tech2014
+
+namespace Procon2014
 {
     class Puzzle
     {
@@ -72,7 +73,7 @@ namespace soft_tech2014
                 {
                     Node m = Swap(focus, e);
 
-                    // 実験
+                    // 枝刈り
                     if (m.Heuristic > focus.Heuristic) continue;
                     if ((m.Heuristic == focus.Heuristic) && (m.SelectNum != focus.SelectNum)) continue;
                     if ((NodeMatching(close, m) == -1) && (NodeMatching(open.ls, m) == -1)) open.Push(m);
@@ -100,8 +101,6 @@ namespace soft_tech2014
                     //}
                     test1++;
                 }
-                //if ((open.ls.Count > 5000)) { open.ls.RemoveRange(open.ls.Count / 2, open.ls.Count / 2); }
-                //if (close.Count > 30000) close.RemoveRange(0, 5000);
                 Console.WriteLine("op:" + open.ls.Count + " cl:" + close.Count + " pass:" + test1 + "/" + test2 + " f:" + focus.Score);
             }
             return Done;

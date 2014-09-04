@@ -10,7 +10,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace soft_tech2014
+namespace Procon2014
 {
     public partial class Form1 : Form
     {

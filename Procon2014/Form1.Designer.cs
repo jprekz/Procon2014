@@ -1,4 +1,4 @@
-﻿namespace soft_tech2014
+﻿namespace Procon2014
 {
     partial class Form1
     {

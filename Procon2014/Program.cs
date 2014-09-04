@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace soft_tech2014
+namespace Procon2014
 {
     static class Program
     {

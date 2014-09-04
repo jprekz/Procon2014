@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace soft_tech2014
+namespace Procon2014
 {
     enum Direction
     {
