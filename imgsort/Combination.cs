@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ProgramingContest1;
 
 namespace ProgramingContestImageSort
 {
@@ -39,17 +40,24 @@ namespace ProgramingContestImageSort
         }
         private void combinationSet(int[] all, int select)
         {
-            combinationValue = new int[factorial(all.Length) / (factorial(all.Length - select) * factorial(select))][];
+            combinationValue = new int[combinationAll(all.Length,select)][];
         }
-        private int factorial(int num)
+        private long factorial(int num)
         {
-            int result = 1;
+            long result = 1;
             for (int i = 1; i <= num; i++)
             {
                 result *= i;
             }
             return result;
         }
+        public long combinationAll(int firstNum, int secondNum)
+        {
+            if (secondNum == 0) return 1;
+            if (firstNum == 0) return 0;
+            return firstNum * combinationAll(firstNum - 1, secondNum - 1) / secondNum;
+        }
+
         public int[][] combination(int all, int select)
         {
             int[] allArray = new int[all];
@@ -59,8 +67,10 @@ namespace ProgramingContestImageSort
             }
             combinationSet(allArray, select);
             int[] num = new int[0];
+            combinationCount = -1;
             combinationGet(allArray, select, num);
             return combinationValue;
         }
     }
+    
 }

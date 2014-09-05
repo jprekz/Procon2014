@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ProgramingContest1;
 
 namespace ProgramingContestImageSort
 {
@@ -28,7 +29,7 @@ namespace ProgramingContestImageSort
                     {
                         for (int secondPieceX = 0; secondPieceX < PpmData.picPieceX; secondPieceX++)
                         {
-                            if(firstPieceX >= secondPieceX && firstPieceY >= secondPieceY)
+                            if (firstPieceX + (firstPieceY * PpmData.picPieceX) >= secondPieceX + (secondPieceY * PpmData.picPieceX))
                             {
                                 continue;
                             }
@@ -40,12 +41,12 @@ namespace ProgramingContestImageSort
                                 {
                                     if(color == 0)
                                     {
-                                        edgeCompareValue[arrayCount+direction][0] = firstPieceX;
-                                        edgeCompareValue[arrayCount+direction][1] = firstPieceY;
-                                        edgeCompareValue[arrayCount+direction][2] = direction;
-                                        edgeCompareValue[arrayCount+direction][3] = secondPieceX;
-                                        edgeCompareValue[arrayCount+direction][4] = secondPieceY;
-                                        edgeCompareValue[arrayCount+direction][5] = 3 - direction;
+                                        edgeCompareValue[arrayCount + direction][0] = firstPieceX;
+                                        edgeCompareValue[arrayCount + direction][1] = firstPieceY;
+                                        edgeCompareValue[arrayCount + direction][2] = direction;
+                                        edgeCompareValue[arrayCount + direction][3] = secondPieceX;
+                                        edgeCompareValue[arrayCount + direction][4] = secondPieceY;
+                                        edgeCompareValue[arrayCount + direction][5] = direction < 2 ? direction + 2 : direction - 2;
                                     }
                                     edgeCompareValue[arrayCount+direction][6] += directionValue[direction];
                                 }
@@ -81,40 +82,29 @@ namespace ProgramingContestImageSort
                         case 0:
                             firstPiecePixelX = comparePixel;
                             secondPiecePixelX = comparePixel;
-                            if(comparePixel == 0)
-                            {
-                                secondPiecePixelY = PpmData.picHeight / PpmData.picPieceY - 1;
-                            }
+                            secondPiecePixelY = PpmData.picHeight / PpmData.picPieceY - 1;
                             break;
                         case 1:
-                            if (comparePixel == 0)
-                            {
-                                secondPiecePixelX = PpmData.picWidth / PpmData.picPieceX - 1;
-                            }
+                            secondPiecePixelX = PpmData.picWidth / PpmData.picPieceX - 1;
                             firstPiecePixelY = comparePixel;
                             secondPiecePixelY = comparePixel;
                             break;
                         case 2:
                             firstPiecePixelX = comparePixel;
                             secondPiecePixelX = comparePixel;
-                            if(comparePixel == 0)
-                            {
-                                firstPiecePixelY = PpmData.picHeight / PpmData.picPieceY - 1;
-                            }
+                            firstPiecePixelY = PpmData.picHeight / PpmData.picPieceY - 1;
                             break;
                         case 3:
-                            if (comparePixel == 0)
-                            {
-                                firstPiecePixelX = PpmData.picWidth / PpmData.picPieceX - 1;
-                            }
+                            firstPiecePixelX = PpmData.picWidth / PpmData.picPieceX - 1;
                             firstPiecePixelY = comparePixel;
                             secondPiecePixelY = comparePixel;
                             break;
                     }
 
-                    compareValue[firstPieceEdgeDirection] += Math.Abs(PpmData.picBitmap[firstPiecePixelX, firstPiecePixelY, color] - PpmData.picBitmap[secondPiecePixelX, secondPiecePixelY, color]);
+                   compareValue[firstPieceEdgeDirection] += Math.Abs(PpmData.picBitmap[firstPieceInitialX + firstPiecePixelX,firstPieceInitialY + firstPiecePixelY, color] - PpmData.picBitmap[secondPieceInitialX + secondPiecePixelX,secondPieceInitialY + secondPiecePixelY, color]);
 
                 }
+
             }
             return compareValue;
         }

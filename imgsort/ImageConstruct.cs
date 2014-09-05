@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ProgramingContest1;
 
 namespace ProgramingContestImageSort
 {
@@ -30,7 +31,7 @@ namespace ProgramingContestImageSort
             {
                 throw new System.ArgumentException("有効な組み合わせが存在しません");
             }
-
+            pieceMatching();
             return sortedPiece;
 
         }
@@ -44,7 +45,7 @@ namespace ProgramingContestImageSort
                 {
                     edge[i] = edgeCompareValue[edgeCombination[edgeCombinationCount][i]];
                 }
-                if (pieceNumGet(edge) != PpmData.picPieceX * PpmData.picPieceY || !edgeOverlapCheck(edge) || !edgeMatch(edge))
+                if (!pieceNumGet(edge) || !edgeOverlapCheck(edge) || !edgeMatch(edge))
                 {
                     continue;
                 }
@@ -53,7 +54,7 @@ namespace ProgramingContestImageSort
             return false;
         }
 
-        private int pieceNumGet(int[][] edge)
+        private bool pieceNumGet(int[][] edge)
         {
             int[] piecesData = new int[edge.Length * 2];
             for(int i = 0;i < edge.Length;i++)
@@ -61,7 +62,7 @@ namespace ProgramingContestImageSort
                 piecesData[i * 2] = edge[i][0] * 10 + edge[i][1];
                 piecesData[i * 2 + 1] = edge[i][3] * 10 + edge[i][4];
             }
-            return piecesData.Distinct().Count();
+            return piecesData.Distinct().Count() == PpmData.picPieceX*PpmData.picPieceY;
         }
 
         private bool edgeOverlapCheck(int[][] edge)
@@ -102,31 +103,43 @@ namespace ProgramingContestImageSort
                 edgeType[i * 2 + 1][1] = edge[i][5];
                 edgeType[i * 2 + 1][2] = edge[i][0] * 10 + edge[i][1];
             }
-            for(int i = 0;i < edgeType.Length;i++)
+            for (int i = 0; i < edgeType.Length;i++ )
             {
-                for(int j = 0;j < edgeGroup.Length;j++)
+                edgeType[i][0] = edgeType[i][0] + 1;
+            }
+            for (int i = 0; i < edgeType.Length; i++)
+            {
+                for (int j = 0; j < edgeGroup.Length; j++)
                 {
-                    if(edgeType[i][0] == edgeGroup[j][0][0])
+                    if (edgeType[i][0] == edgeGroup[j][0][0])
                     {
                         edgeGroup[j][edgeType[i][1] + 1][0] = 1;
                         edgeGroup[j][edgeType[i][1] + 1][1] = edgeType[i][2];
-                               
+
                         break;
                     }
-                    if(j+1 == edgeGroup.Length)
+                    if (j + 1 == edgeGroup.Length)
                     {
-                         for(int k = 0; k < edgeGroup.Length;k++)
-                         {
-                             if(edgeGroup[k][0][0] == 0)
-                             {
-                                 edgeGroup[k][0][0] = edgeType[i][0];
-                                 edgeGroup[k][edgeType[i][1] + 1][0] = 1;
-                                 edgeGroup[k][edgeType[i][1] + 1][1] = edgeType[i][2];       
-                                 break;
-                             }
-                         }
+                        for (int k = 0; k < edgeGroup.Length; k++)
+                        {
+                            if (edgeGroup[k][0][0] == 0)
+                            {
+                                edgeGroup[k][0][0] = edgeType[i][0];
+                                edgeGroup[k][edgeType[i][1] + 1][0] = 1;
+                                edgeGroup[k][edgeType[i][1] + 1][1] = edgeType[i][2];
+                                break;
+                            }
+                        }
                     }
                 }
+            }
+            for (int i = 0; i < edgeType.Length; i++)
+            {
+                edgeType[i][0] = edgeType[i][0] - 1;
+            }
+            for(int i = 0; i < edgeGroup.Length;i++)
+            {
+                edgeGroup[i][0][0] = edgeGroup[i][0][0] - 1;
             }
             int twoEdgeCount = 0;
             int threeEdgeCount = 0;
@@ -180,19 +193,20 @@ namespace ProgramingContestImageSort
         }
         private void dictionaryCreate()
         {
-            int[][] piece = new int[4][];
-            for (int i = 0; i < 4;i++ )
-            {
-                piece[i] = new int[2];
-            }
             pieceDictionary = new Dictionary<int, int[][]>();
             for(int i = 0;i < pieceData.Length;i++)
             {
+                int[][] piece = new int[4][];
+                for (int j = 0; j < 4; j++)
+                {
+                    piece[j] = new int[2];
+                }
                 for(int j = 0;j < 4;j++)
                 {
                     piece[j] = pieceData[i][j + 1];
                 }
-                pieceDictionary.Add(pieceData[i][0][0], piece);
+                pieceDictionary[pieceData[i][0][0]] = piece;
+                piece = null;
             }
         }
 
@@ -220,7 +234,7 @@ namespace ProgramingContestImageSort
                         nextPiece = pieceDictionary[nextPiece][3][1];
                     }
                 }
-                nextPiece = pieceDictionary[cornerPiece][2][1];
+                nextPiece = pieceDictionary[underPiece][2][1];
                 underPiece = nextPiece;
             }
             return true;

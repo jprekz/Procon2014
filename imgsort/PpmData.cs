@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 
-namespace ProgramingContestImageSort
+namespace ProgramingContest1
 {
     public class PpmData
     {
@@ -23,7 +23,7 @@ namespace ProgramingContestImageSort
             FileStream fs = new FileStream(ppmFile, FileMode.Open, FileAccess.Read);
             StreamReader sr = new StreamReader(fs);
             string[] str = new string[6];
-            for (int i = 0; i < 6; i++) //6行のテキスト行の読み取り
+            for (int i = 0; i < 6;i++ ) //6行のテキスト行の読み取り
             {
                 str[i] = sr.ReadLine();
             }
