@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 
-namespace ProgramingContest1
+namespace ProgramingContestImageSort
 {
     public class PpmData
     {
