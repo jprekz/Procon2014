@@ -6,95 +6,91 @@ using System.Threading.Tasks;
 
 namespace PuzzleSolving
 {
-    class Edge
+    enum Direction
     {
+        U, D, R, L
+    }
 
-        enum Direction
+    struct Edge
+    {
+        public byte Selected;
+        public Direction Swap;
+
+        public Edge(int x, int y, Direction d)
         {
-            U, D, R, L
+            Selected = (byte)(x * 16 + y);
+            Swap = d;
+        }
+        public byte NextSelect
+        {
+            get
+            {
+                switch (Swap)
+                {
+                    case Direction.U:
+                        return (byte)(Selected - 1);
+                    case Direction.D:
+                        return (byte)(Selected + 1);
+                    case Direction.R:
+                        return (byte)(Selected + 16);
+                    case Direction.L:
+                        return (byte)(Selected - 16);
+                    default:
+                        return Selected;    // arienkakkowara
+                }
+            }
+        }
+        public int x
+        {
+            get
+            {
+                return Selected / 16;
+            }
         }
 
-        struct Edge
+        public int y
         {
-            public byte Selected;
-            public Direction Swap;
-
-            public Edge(int x, int y, Direction d)
+            get
             {
-                Selected = (byte)(x * 16 + y);
-                Swap = d;
+                return Selected % 16;
             }
-            public byte NextSelect
+        }
+
+        public int nextx
+        {
+            get
             {
-                get
+                switch (Swap)
                 {
-                    switch (Swap)
-                    {
-                        case Direction.U:
-                            return (byte)(Selected - 1);
-                        case Direction.D:
-                            return (byte)(Selected + 1);
-                        case Direction.R:
-                            return (byte)(Selected + 16);
-                        case Direction.L:
-                            return (byte)(Selected - 16);
-                        default:
-                            return Selected;    // arienkakkowara
-                    }
+                    case Direction.R:
+                        return x + 1;
+                    case Direction.L:
+                        return x - 1;
+                    default:
+                        return x;
                 }
             }
-            public int x
+        }
+
+        public int nexty
+        {
+            get
             {
-                get
+                switch (Swap)
                 {
-                    return Selected / 16;
+                    case Direction.U:
+                        return y - 1;
+                    case Direction.D:
+                        return y + 1;
+                    default:
+                        return y;
                 }
             }
+        }
 
-            public int y
-            {
-                get
-                {
-                    return Selected % 16;
-                }
-            }
-
-            public int nextx
-            {
-                get
-                {
-                    switch (Swap)
-                    {
-                        case Direction.R:
-                            return x + 1;
-                        case Direction.L:
-                            return x - 1;
-                        default:
-                            return x;
-                    }
-                }
-            }
-
-            public int nexty
-            {
-                get
-                {
-                    switch (Swap)
-                    {
-                        case Direction.U:
-                            return y - 1;
-                        case Direction.D:
-                            return y + 1;
-                        default:
-                            return y;
-                    }
-                }
-            }
-
-            public override string ToString()
-            {
-                return Selected.ToString("X2") + "," + Swap;
-            }
+        public override string ToString()
+        {
+            return Selected.ToString("X2") + "," + Swap;
         }
     }
 }
