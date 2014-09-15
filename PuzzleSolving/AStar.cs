@@ -7,8 +7,10 @@ using System.Threading.Tasks;
 
 namespace PuzzleSolving
 {
-    public class AStar : PuzzleSolving
+    public class AStar : IPuzzleSolving
     {
+        private Thread t;
+
         private byte[,] startCells;
         private int selectMax,
             selectCost,
@@ -25,9 +27,22 @@ namespace PuzzleSolving
             swapCost = swapc;
 	        CellsX = startCells.GetLength(0);
             CellsY = startCells.GetLength(1);
+
+            t = new Thread(new ThreadStart(SolveThread));
+            t.IsBackground = true;
         }
 
-        protected override void SolveThread()
+        public void Start()
+        {
+            if (!t.IsAlive) t.Start();
+        }
+
+        public void Stop()
+        {
+            if (t.IsAlive) t.Interrupt();
+        }
+
+        protected void SolveThread()
         {
             PriorityQueue<Node> open = new PriorityQueue<Node>(65536);
             List<Node> close = new List<Node>(65536);
@@ -197,7 +212,7 @@ namespace PuzzleSolving
             return edges;
         }
 
-        public override string GetAnswerString()
+        public string GetAnswerString()
         {
             Node n = ans;
             // 経路を遡る
@@ -230,9 +245,27 @@ namespace PuzzleSolving
             return answer;
         }
 
-        public override int GetAnswerCost()
+        public int GetAnswerCost()
         {
             return ans.Score;
+        }
+
+        public event EventHandler FindBestAnswer;
+        protected virtual void OnFindBestAnswer(EventArgs e)
+        {
+            if (FindBestAnswer != null) FindBestAnswer(this, e);
+        }
+
+        public event EventHandler FindBetterAnswer;
+        protected virtual void OnFindBetterAnswer(EventArgs e)
+        {
+            if (FindBetterAnswer != null) FindBetterAnswer(this, e);
+        }
+
+        public event EventHandler SolvingError;
+        protected virtual void OnSolvingError(EventArgs e)
+        {
+            if (SolvingError != null) SolvingError(this, e);
         }
     }
 }
