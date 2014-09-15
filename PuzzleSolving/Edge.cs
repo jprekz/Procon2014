@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Procon2014
+namespace PuzzleSolving
 {
     enum Direction
     {
-        U,D,R,L
+        U, D, R, L
     }
 
     struct Edge
@@ -16,7 +16,7 @@ namespace Procon2014
         public byte Selected;
         public Direction Swap;
 
-        public Edge(int x,int y,Direction d)
+        public Edge(int x, int y, Direction d)
         {
             Selected = (byte)(x * 16 + y);
             Swap = d;
@@ -91,6 +91,6 @@ namespace Procon2014
         public override string ToString()
         {
             return Selected.ToString("X2") + "," + Swap;
-        } 
+        }
     }
 }
