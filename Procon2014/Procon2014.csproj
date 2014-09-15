@@ -106,6 +106,12 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PuzzleSolving\PuzzleSolving.csproj">
+      <Project>{3d8759a7-bd42-45d1-b54a-9bf75fcec36f}</Project>
+      <Name>PuzzleSolving</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

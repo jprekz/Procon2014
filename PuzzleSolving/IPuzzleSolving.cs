@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PuzzleSolving
 {
-    interface IPuzzleSolving
+    public interface IPuzzleSolving
     {
         void Start();
 

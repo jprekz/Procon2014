@@ -9,12 +9,13 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using PuzzleSolving;
 
 namespace Procon2014
 {
     public partial class Form1 : Form
     {
-        private Puzzle p;
+        private IPuzzleSolving p;
         private System.Diagnostics.Stopwatch sw;
         public Form1()
         {
@@ -37,7 +38,7 @@ namespace Procon2014
                 }
             }
 
-            p = new Puzzle(cells, ppme.ppmd.picsetrepeat, ppme.ppmd.picsetrate, ppme.ppmd.picmoverate);
+            p = new AStar(cells, ppme.ppmd.picsetrepeat, ppme.ppmd.picsetrate, ppme.ppmd.picmoverate);
         }
 
         private void buttonStart_Click(object sender, EventArgs e)
@@ -45,35 +46,28 @@ namespace Procon2014
             buttonStart.Enabled = false;
             initializeManagement();
             sw = System.Diagnostics.Stopwatch.StartNew();
-            Thread t = new Thread(new ThreadStart(SolveThread));
-            t.IsBackground = true;
-            t.Start();
+            p.FindBestAnswer += p_FindBestAnswer;
+            p.FindBetterAnswer += p_FindBetterAnswer;
+            p.Start();
         }
 
-        private void SolveThread()
+        void p_FindBestAnswer(object sender, EventArgs e)
         {
-            for (int i = 0; !p.Done; i++)
+            this.BeginInvoke((MethodInvoker)delegate()
             {
-                p.SolvePuzzle(1000);
-                string s = p.getString();
-                this.BeginInvoke(
-                    new UpdateFormDelegate(UpdateForm),
-                    new object[] { i, s });
-            }
-            sw.Stop();
+                this.textBox1.Text = p.GetAnswerString();
+                this.Text = "Done " + sw.Elapsed;
+                sw.Stop();
+            });
         }
 
-        private delegate void UpdateFormDelegate(int val,string s);
-        private void UpdateForm(int val, string s)
+        void p_FindBetterAnswer(object sender, EventArgs e)
         {
-            textBox1.Text = s;
-            this.Text = "" + val;
-            if (p.Done)
+            this.BeginInvoke((MethodInvoker)delegate()
             {
-                this.Text = "Done";
-                this.buttonStart.Enabled = true;
-            }
-            this.Text += " " + sw.Elapsed;
+                this.textBox1.Text = p.GetAnswerString();
+                this.Text = "Not best " + sw.Elapsed;
+            });
         }
     }
 }

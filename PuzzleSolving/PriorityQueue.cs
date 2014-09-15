@@ -75,5 +75,13 @@ namespace PuzzleSolving
                 i = j;
             }
         }
+
+        public int Count
+        {
+            get
+            {
+                return ls.Count;
+            }
+        }
     }
 }

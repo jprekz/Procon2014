@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PuzzleSolving
 {
-    class AStar : IPuzzleSolving
+    public class AStar : IPuzzleSolving
     {
         private Thread t;
         private byte[,] startCells;
@@ -46,6 +46,9 @@ namespace PuzzleSolving
             List<Node> close = new List<Node>(65536);
             Node focus = new Node(startCells, 0, 0, Heuristic(startCells), null, new Edge(), Heuristic(startCells));
             Edge[] allEdges = NewAllEdges();
+            ans = focus;
+            int test1, test2;
+
             foreach (Edge e in allEdges)
             {
                 Node n = FirstSwap(focus, e);
@@ -58,6 +61,7 @@ namespace PuzzleSolving
                 focus = open[0];
                 if (focus.Heuristic == 0)
                 {
+                    ans = focus;
                     OnFindBestAnswer(new EventArgs());
                     return;
                 }
@@ -65,6 +69,10 @@ namespace PuzzleSolving
                 open.RemoveAt(0);
 
                 Edge[] edges = (focus.SelectNum == selectMax) ? NewLastLineEdges(focus.Selecting) : allEdges;
+
+                test1 = 0;
+                test2 = edges.Count();
+
                 foreach (Edge e in edges)
                 {
                     Node m = Swap(focus, e);
@@ -72,8 +80,38 @@ namespace PuzzleSolving
                     // 枝刈り
                     if (m.Heuristic > focus.Heuristic) continue;
                     if ((m.Heuristic == focus.Heuristic) && (m.SelectNum != focus.SelectNum)) continue;
-                    if ((close.LastIndexOf(m) == -1) && (open.IndexOf(m) == -1)) open.Push(m);
+
+                    int num;
+                    if ((num = close.LastIndexOf(m)) != -1)
+                    {
+                        // 要らなくね
+                        if (m.Score < close[num].Score)
+                        {
+                            open.Push(m);
+                            close.RemoveAt(num);
+                        }
+                    }
+                    else if ((num = open.IndexOf(m)) != -1)
+                    {
+                        if (m.Score < open[num].Score)
+                        {
+                            open.RemoveAt(num);
+                            open.Push(m);
+                        }
+                    }
+                    else
+                    {
+                        open.Push(m);
+                        if ((ans.Heuristic > m.Heuristic) ||
+                            ((ans.Heuristic == m.Heuristic) && (ans.Score > m.Score)))
+                        {
+                            ans = m;
+                            OnFindBetterAnswer(new EventArgs());
+                        }
+                    }
+                    test1++;
                 }
+                Console.WriteLine("op:" + open.Count + " cl:" + close.Count + " pass:" + test1 + "/" + test2 + " f:" + focus.Score);
             }
         }
 
@@ -172,7 +210,6 @@ namespace PuzzleSolving
             }
             return edges;
         }
-
 
         public string GetAnswerString()
         {
