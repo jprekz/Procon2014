@@ -7,9 +7,8 @@ using System.Threading.Tasks;
 
 namespace PuzzleSolving
 {
-    public class AStar : IPuzzleSolving
+    public class AStar : PuzzleSolving
     {
-        private Thread t;
         private byte[,] startCells;
         private int selectMax,
             selectCost,
@@ -26,21 +25,9 @@ namespace PuzzleSolving
             swapCost = swapc;
 	        CellsX = startCells.GetLength(0);
             CellsY = startCells.GetLength(1);
-            t = new Thread(new ThreadStart(SolveThread));
-            t.IsBackground = true;
         }
 
-        public void Start()
-        {
-            if (!t.IsAlive) t.Start();
-        }
-
-        public void Stop()
-        {
-            if (t.IsAlive) t.Interrupt();
-        }
-
-        private void SolveThread()
+        protected override void SolveThread()
         {
             PriorityQueue<Node> open = new PriorityQueue<Node>(65536);
             List<Node> close = new List<Node>(65536);
@@ -114,7 +101,6 @@ namespace PuzzleSolving
                 Console.WriteLine("op:" + open.Count + " cl:" + close.Count + " pass:" + test1 + "/" + test2 + " f:" + focus.Score);
             }
         }
-
 
         private int Heuristic(byte[,] cells)
         {
@@ -211,10 +197,10 @@ namespace PuzzleSolving
             return edges;
         }
 
-        public string GetAnswerString()
+        public override string GetAnswerString()
         {
-            // 経路を遡る
             Node n = ans;
+            // 経路を遡る
             Node back = n;
             List<Edge> route = new List<Edge>();
             while (back.From != null)
@@ -244,27 +230,9 @@ namespace PuzzleSolving
             return answer;
         }
 
-        public int GetAnswerCost()
+        public override int GetAnswerCost()
         {
             return ans.Score;
-        }
-
-        public event EventHandler FindBestAnswer;
-        protected virtual void OnFindBestAnswer(EventArgs e)
-        {
-            if (FindBestAnswer != null) FindBestAnswer(this, e);
-        }
-
-        public event EventHandler FindBetterAnswer;
-        protected virtual void OnFindBetterAnswer(EventArgs e)
-        {
-            if (FindBetterAnswer != null) FindBetterAnswer(this, e);
-        }
-
-        public event EventHandler SolvingError;
-        protected virtual void OnSolvingError(EventArgs e)
-        {
-            if (SolvingError != null) SolvingError(this, e);
         }
     }
 }
