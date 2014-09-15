@@ -32,6 +32,11 @@ namespace PuzzleSolving
             }
         }
 
+        public int IndexOf(T x)
+        {
+            return ls.IndexOf(x);
+        }
+
         public void Push(T x)
         {
             int n = ls.Count;
