@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,7 +10,7 @@ namespace PuzzleSolving
 {
     public class AStar : IPuzzleSolving
     {
-        private Thread t;
+        private Thread[] t = new Thread[2];
 
         private byte[,] startCells;
         private int selectMax,
@@ -18,6 +19,8 @@ namespace PuzzleSolving
             CellsX,
             CellsY;
         private Node ans;
+
+        private Queue<Node> checkQueue = new Queue<Node>();
 
         public AStar(byte[,] c, int selectm, int selectc, int swapc)
         {
@@ -28,21 +31,31 @@ namespace PuzzleSolving
 	        CellsX = startCells.GetLength(0);
             CellsY = startCells.GetLength(1);
 
-            t = new Thread(new ThreadStart(SolveThread));
-            t.IsBackground = true;
+            t[0] = new Thread(new ThreadStart(SolveThread));
+            t[1] = new Thread(new ThreadStart(CheckThread));
+            foreach (Thread thread in t)
+            {
+                thread.IsBackground = true;
+            }
         }
 
         public void Start()
         {
-            if (!t.IsAlive) t.Start();
+            foreach (Thread thread in t)
+            {
+                if (!thread.IsAlive) thread.Start();
+            }
         }
 
         public void Stop()
         {
-            if (t.IsAlive) t.Interrupt();
+            foreach (Thread thread in t)
+            {
+                if (thread.IsAlive) thread.Abort();
+            }
         }
 
-        protected void SolveThread()
+        private void SolveThread()
         {
             PriorityQueue<Node> open = new PriorityQueue<Node>(65536);
             List<Node> close = new List<Node>(65536);
@@ -104,16 +117,31 @@ namespace PuzzleSolving
                     else
                     {
                         open.Push(m);
-                        if ((ans.Heuristic > m.Heuristic) ||
-                            ((ans.Heuristic == m.Heuristic) && (ans.Score > m.Score)))
-                        {
-                            ans = m;
-                            OnFindBetterAnswer(new EventArgs());
-                        }
+                        lock (((ICollection)checkQueue).SyncRoot) checkQueue.Enqueue(m);
                     }
                     test1++;
                 }
                 Console.WriteLine("op:" + open.Count + " cl:" + close.Count + " pass:" + test1 + "/" + test2 + " f:" + focus.Score);
+            }
+        }
+
+        private void CheckThread()
+        {
+            Node n;
+            while(true)
+            {
+                while (checkQueue.Count != 0)
+                {
+                    lock (((ICollection)checkQueue).SyncRoot) n = checkQueue.Dequeue();
+                    if ((ans.Heuristic > n.Heuristic) ||
+                        ((ans.Heuristic == n.Heuristic) && (ans.Score > n.Score)))
+                    {
+                        ans = n;
+                        OnFindBetterAnswer(new EventArgs());
+                    }
+                }
+                Thread.Sleep(50);
+                Console.WriteLine("----------------------------------------" + checkQueue.Count);
             }
         }
 

@@ -58,6 +58,7 @@ namespace Procon2014
                 this.textBox1.Text = p.GetAnswerString();
                 this.Text = "Done " + sw.Elapsed;
                 sw.Stop();
+                p.Stop();
             });
         }
 
