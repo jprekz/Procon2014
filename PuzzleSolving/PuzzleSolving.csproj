@@ -43,6 +43,7 @@
     <Compile Include="Edge.cs" />
     <Compile Include="IPuzzleSolving.cs" />
     <Compile Include="Node.cs" />
+    <Compile Include="ParallelSearch.cs" />
     <Compile Include="PriorityQueue.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
