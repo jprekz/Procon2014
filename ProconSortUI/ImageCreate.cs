@@ -1,0 +1,58 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Drawing;
+using System.Drawing.Imaging;
+
+namespace ProconSortUI
+{
+    class ImageCreate
+    {
+        public Bitmap ppmCut(byte[] sortedpiece)
+        {
+            int width = PpmData.picWidth / PpmData.picDivision[0];
+            int height = PpmData.picHeight / PpmData.picDivision[1];
+            int x, y;
+            int sortedX = 0, sortedY = 0, xStart = 0, yStart = 0;
+            int[, ,] sortedBmp = new int[PpmData.picWidth, PpmData.picHeight, 3];
+            for (int i = 2; i < (sortedpiece[0] * sortedpiece[1])*2+2;i += 2)
+            {
+                x = sortedpiece[i];
+                y = sortedpiece[i+1];
+                for (int originY = y * height; originY < y * height + height; originY++)
+                {
+                    for (int originX = x * width; originX < x * width + width; originX++)
+                    {
+                        for (int rgb = 0; rgb < 3; rgb++)
+                        {
+                            sortedBmp[sortedX + (xStart * width), sortedY + (yStart * height), rgb] = PpmData.picBitmap[originX, originY, rgb];
+                        }
+                        sortedX++;
+                    }
+                    sortedY++;
+                    sortedX = 0;
+                }
+                xStart++;
+                if (xStart > PpmData.picDivision[0] - 1)
+                {
+                    xStart = 0;
+                    yStart++;
+                }
+                sortedX = 0;
+                sortedY = 0;
+            }
+            Bitmap bmp = new Bitmap(PpmData.picWidth, PpmData.picHeight);
+            for (int yCount = 0; yCount < PpmData.picHeight; yCount++)
+            {
+                for (int xCount = 0; xCount < PpmData.picWidth; xCount++)
+                {
+                    Color rgb = Color.FromArgb(sortedBmp[xCount, yCount, 0], sortedBmp[xCount, yCount, 1], sortedBmp[xCount, yCount, 2]);
+                    bmp.SetPixel(xCount, yCount, rgb);
+                }
+            }
+            return bmp;
+        }
+    }
+}

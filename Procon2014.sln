@@ -1,15 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30110.0
+VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Procon2014", "Procon2014\Procon2014.csproj", "{04C7A09F-22F0-4C3E-9C45-AAE745772FAA}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A63B3A38-40BF-443C-B391-CCF0C5D2CC70}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProgramingContestImageSort", "imgsort\ProgramingContestImageSort.csproj", "{3A3C8858-D3B8-4A56-9A82-5B87B7267757}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PuzzleSolving", "PuzzleSolving\PuzzleSolving.csproj", "{3D8759A7-BD42-45D1-B54A-9BF75FCEC36F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProconSortUI", "..\..\..\Documents\Visual Studio 2013\Projects\ProconSortUI\ProconSortUI\ProconSortUI.csproj", "{37718F2A-135B-48A5-9F22-9493B8FDB860}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,18 +27,18 @@ Global
 		{04C7A09F-22F0-4C3E-9C45-AAE745772FAA}.Release|Any CPU.Build.0 = Release|Any CPU
 		{04C7A09F-22F0-4C3E-9C45-AAE745772FAA}.Release|x64.ActiveCfg = Release|x64
 		{04C7A09F-22F0-4C3E-9C45-AAE745772FAA}.Release|x64.Build.0 = Release|x64
-		{3A3C8858-D3B8-4A56-9A82-5B87B7267757}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3A3C8858-D3B8-4A56-9A82-5B87B7267757}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3A3C8858-D3B8-4A56-9A82-5B87B7267757}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{3A3C8858-D3B8-4A56-9A82-5B87B7267757}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3A3C8858-D3B8-4A56-9A82-5B87B7267757}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3A3C8858-D3B8-4A56-9A82-5B87B7267757}.Release|x64.ActiveCfg = Release|Any CPU
 		{3D8759A7-BD42-45D1-B54A-9BF75FCEC36F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3D8759A7-BD42-45D1-B54A-9BF75FCEC36F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3D8759A7-BD42-45D1-B54A-9BF75FCEC36F}.Debug|x64.ActiveCfg = Debug|Any CPU
 		{3D8759A7-BD42-45D1-B54A-9BF75FCEC36F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3D8759A7-BD42-45D1-B54A-9BF75FCEC36F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3D8759A7-BD42-45D1-B54A-9BF75FCEC36F}.Release|x64.ActiveCfg = Release|Any CPU
+		{37718F2A-135B-48A5-9F22-9493B8FDB860}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{37718F2A-135B-48A5-9F22-9493B8FDB860}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{37718F2A-135B-48A5-9F22-9493B8FDB860}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{37718F2A-135B-48A5-9F22-9493B8FDB860}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{37718F2A-135B-48A5-9F22-9493B8FDB860}.Release|Any CPU.Build.0 = Release|Any CPU
+		{37718F2A-135B-48A5-9F22-9493B8FDB860}.Release|x64.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
