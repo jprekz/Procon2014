@@ -95,6 +95,10 @@ namespace ProgramingContestImageSort
                 {
                     foreach (int[] edge in edges)
                     {
+                        if ((x + y * PpmData.picDivision[0]) * 2 + 5 >= sortedPiece.Length)
+                        {
+                            break;
+                        }
                         if (nextpiece % PpmData.picDivision[0] == edge[0] && nextpiece / PpmData.picDivision[0] == edge[1] && edge[2] == 3)
                         {
                             nextpiece = edge[4] * PpmData.picDivision[0] + edge[3];

@@ -9,7 +9,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PuzzleSolving", "PuzzleSolving\PuzzleSolving.csproj", "{3D8759A7-BD42-45D1-B54A-9BF75FCEC36F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProconSortUI", "..\..\..\Documents\Visual Studio 2013\Projects\ProconSortUI\ProconSortUI\ProconSortUI.csproj", "{37718F2A-135B-48A5-9F22-9493B8FDB860}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProconSortUI", "ProconSortUI\ProconSortUI.csproj", "{37718F2A-135B-48A5-9F22-9493B8FDB860}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
