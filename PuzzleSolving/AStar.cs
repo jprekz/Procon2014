@@ -12,25 +12,13 @@ namespace PuzzleSolving
     {
         private Thread[] t = new Thread[2];
 
-        private byte[,] startCells;
-        private int selectMax,
-            selectCost,
-            swapCost,
-            CellsX,
-            CellsY;
         private Node ans;
 
         private Queue<Node> checkQueue = new Queue<Node>();
 
-        public AStar(byte[,] c, int selectm, int selectc, int swapc)
+        public AStar(Game g)
+            : base(g)
         {
-            startCells = (byte[,])c.Clone();
-            selectMax = selectm;
-            selectCost = selectc;
-            swapCost = swapc;
-	        CellsX = startCells.GetLength(0);
-            CellsY = startCells.GetLength(1);
-
             t[0] = new Thread(new ThreadStart(SolveThread));
             t[1] = new Thread(new ThreadStart(CheckThread));
             foreach (Thread thread in t)
@@ -59,7 +47,7 @@ namespace PuzzleSolving
         {
             PriorityQueue<Node> open = new PriorityQueue<Node>(65536);
             List<Node> close = new List<Node>(65536);
-            Node focus = new Node(startCells, 0, 0, Heuristic(startCells), null, new Edge(), Heuristic(startCells));
+            Node focus = new Node(game.StartCells, 0, 0, Heuristic(game.StartCells), null, new Edge(), Heuristic(game.StartCells));
             Edge[] allEdges = NewAllEdges();
             ans = focus;
             int test1, test2;
@@ -83,7 +71,7 @@ namespace PuzzleSolving
                 close.Add(focus);
                 open.RemoveAt(0);
 
-                Edge[] edges = (focus.SelectNum == selectMax) ? NewLastLineEdges(focus.Selecting) : allEdges;
+                Edge[] edges = (focus.SelectNum == game.SelectMax) ? NewLastLineEdges(focus.Selecting) : allEdges;
 
                 test1 = 0;
                 test2 = edges.Count();
@@ -149,15 +137,15 @@ namespace PuzzleSolving
         {
             int num,
                 h = 0;
-            for (int y = 0; y != CellsY; y++)
+            for (int y = 0; y != game.CellsY; y++)
             {
-                for (int x = 0; x != CellsX; x++)
+                for (int x = 0; x != game.CellsX; x++)
                 {
                     num = cells[x, y];
                     h += (Math.Abs(num / 16 - x) + Math.Abs(num % 16 - y));
                 }
             }
-            return h / 2 * swapCost;
+            return h / 2 * game.SwapCost;
         }
 
         private Node Swap(Node n, Edge e)
@@ -169,8 +157,8 @@ namespace PuzzleSolving
             byte nextSelectNum = (n.Selecting == e.Selected) ? n.SelectNum : (byte)(n.SelectNum + 1);
             int nextHeuristic = Heuristic(nextCells);
             int nextScore = (n.Selecting == e.Selected) ?
-                n.Score - n.Heuristic + nextHeuristic + swapCost :
-                n.Score - n.Heuristic + nextHeuristic + swapCost + selectCost;
+                n.Score - n.Heuristic + nextHeuristic + game.SwapCost :
+                n.Score - n.Heuristic + nextHeuristic + game.SwapCost + game.SelectCost;
             return new Node(nextCells, e.NextSelect, nextSelectNum, nextHeuristic, n, e, nextScore);
         }
 
@@ -181,23 +169,23 @@ namespace PuzzleSolving
             nextCells[e.x, e.y] = nextCells[e.nextx,e.nexty];
             nextCells[e.nextx, e.nexty] = buf;
             int nextHeuristic = Heuristic(nextCells);
-            int nextScore = nextHeuristic + swapCost + selectCost;
+            int nextScore = nextHeuristic + game.SwapCost + game.SelectCost;
             return new Node(nextCells, e.NextSelect, 1, nextHeuristic, n, e, nextScore);
         }
 
         private Edge[] NewAllEdges()
         {
-            Edge[] allEdge = new Edge[CellsX * CellsY * 4 - (CellsX + CellsY) * 2];
+            Edge[] allEdge = new Edge[game.CellsX * game.CellsY * 4 - (game.CellsX + game.CellsY) * 2];
             int counter = 0;
-            for (int y = 0; y != CellsY; y++)
+            for (int y = 0; y != game.CellsY; y++)
             {
-                for (int x = 0; x != CellsX; x++)
+                for (int x = 0; x != game.CellsX; x++)
                 {
                     if (y != 0)
                     {
                         allEdge[counter++] = new Edge(x, y, Direction.U);
                     }
-                    if (y != CellsY - 1)
+                    if (y != game.CellsY - 1)
                     {
                         allEdge[counter++] = new Edge(x, y, Direction.D);
                     }
@@ -205,7 +193,7 @@ namespace PuzzleSolving
                     {
                         allEdge[counter++] = new Edge(x, y, Direction.L);
                     }
-                    if (x != CellsX - 1)
+                    if (x != game.CellsX - 1)
                     {
                         allEdge[counter++] = new Edge(x, y, Direction.R);
                     }
@@ -218,14 +206,14 @@ namespace PuzzleSolving
         {
             int x = selecting / 16,
                 y = selecting % 16;
-            Edge[] edges = new Edge[(4 - ((x == 0 || x == CellsX - 1) ? 1 : 0) - ((y == 0 || y == CellsY - 1) ? 1 : 0))];
+            Edge[] edges = new Edge[(4 - ((x == 0 || x == game.CellsX - 1) ? 1 : 0) - ((y == 0 || y == game.CellsY - 1) ? 1 : 0))];
 
             int counter = 0;
             if (y != 0)
             {
                 edges[counter++] = new Edge(x, y, Direction.U);
             }
-            if (y != CellsY - 1)
+            if (y != game.CellsY - 1)
             {
                 edges[counter++] = new Edge(x, y, Direction.D);
             }
@@ -233,7 +221,7 @@ namespace PuzzleSolving
             {
                 edges[counter++] = new Edge(x, y, Direction.L);
             }
-            if (x != CellsX - 1)
+            if (x != game.CellsX - 1)
             {
                 edges[counter++] = new Edge(x, y, Direction.R);
             }
@@ -254,7 +242,7 @@ namespace PuzzleSolving
             route.Reverse();
             // わさわさ文字列操作
             string NL = Environment.NewLine;
-            string answer = "---" + n.Heuristic/swapCost + " " + n.Score + NL;
+            string answer = "---" + n.Heuristic / game.SwapCost + " " + n.Score + NL;
             answer += n.SelectNum + NL;
             for (int i = 0; i != n.SelectNum; i++)
             {
