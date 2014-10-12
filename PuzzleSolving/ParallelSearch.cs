@@ -7,29 +7,20 @@ using System.Threading.Tasks;
 
 namespace PuzzleSolving
 {
-    class ParallelSearch : IPuzzleSolving
+    public class ParallelSearch : PuzzleSolving
     {
         private Thread[] solving;
         private Thread checking;
 
-        private byte[,] startCells;
-        private int selectMax,
-            selectCost,
-            swapCost,
-            CellsX,
-            CellsY;
-
         private List<Node>[] close;
+        private PriorityQueue<Node>[] open;
         private Queue<Node> checkQueue = new Queue<Node>();
 
         public ParallelSearch(byte[,] c, int selectm, int selectc, int swapc)
+            : base(c, selectm, selectc, swapc)
         {
-            startCells = (byte[,])c.Clone();
-            selectMax = selectm;
-            selectCost = selectc;
-            swapCost = swapc;
-	        CellsX = startCells.GetLength(0);
-            CellsY = startCells.GetLength(1);
+            close = new List<Node>[selectMax];
+            open = new PriorityQueue<Node>[selectMax];
 
             solving = new Thread[selectMax];
             for (int i = 0; i < selectMax; i++)
@@ -37,15 +28,16 @@ namespace PuzzleSolving
                 solving[i] = new Thread(new ParameterizedThreadStart(SolveThread));
             }
         }
-        public void Start()
+
+        public override void Start()
         {
-            for (int i = 0; i < selectMax; i++)
+            for (int i = 0; i < solving.Length; i++)
             {
                 if (!solving[i].IsAlive) solving[i].Start(i);
             }
         }
 
-        public void Stop()
+        public override void Stop()
         {
             foreach (var t in solving)
             {
@@ -76,32 +68,14 @@ namespace PuzzleSolving
         }
 
 
-        public string GetAnswerString()
+        public override string GetAnswerString()
         {
             throw new NotImplementedException();
         }
 
-        public int GetAnswerCost()
+        public override int GetAnswerCost()
         {
             throw new NotImplementedException();
-        }
-
-        public event EventHandler FindBestAnswer;
-        protected virtual void OnFindBestAnswer(EventArgs e)
-        {
-            if (FindBestAnswer != null) FindBestAnswer(this, e);
-        }
-
-        public event EventHandler FindBetterAnswer;
-        protected virtual void OnFindBetterAnswer(EventArgs e)
-        {
-            if (FindBetterAnswer != null) FindBetterAnswer(this, e);
-        }
-
-        public event EventHandler SolvingError;
-        protected virtual void OnSolvingError(EventArgs e)
-        {
-            if (SolvingError != null) SolvingError(this, e);
         }
     }
 }
