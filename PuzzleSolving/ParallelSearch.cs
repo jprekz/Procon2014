@@ -9,7 +9,8 @@ namespace PuzzleSolving
 {
     class ParallelSearch : IPuzzleSolving
     {
-        private Thread[] t = new Thread[1];
+        private Thread[] solving;
+        private Thread checking;
 
         private byte[,] startCells;
         private int selectMax,
@@ -17,6 +18,9 @@ namespace PuzzleSolving
             swapCost,
             CellsX,
             CellsY;
+
+        private List<Node>[] close;
+        private Queue<Node> checkQueue = new Queue<Node>();
 
         public ParallelSearch(byte[,] c, int selectm, int selectc, int swapc)
         {
@@ -26,16 +30,51 @@ namespace PuzzleSolving
             swapCost = swapc;
 	        CellsX = startCells.GetLength(0);
             CellsY = startCells.GetLength(1);
+
+            solving = new Thread[selectMax];
+            for (int i = 0; i < selectMax; i++)
+            {
+                solving[i] = new Thread(new ParameterizedThreadStart(SolveThread));
+            }
         }
         public void Start()
         {
-            throw new NotImplementedException();
+            for (int i = 0; i < selectMax; i++)
+            {
+                if (!solving[i].IsAlive) solving[i].Start(i);
+            }
         }
 
         public void Stop()
         {
-            throw new NotImplementedException();
+            foreach (var t in solving)
+            {
+                if (t.IsAlive) t.Abort();
+            }
         }
+
+        private void SolveThread(object num)
+        {
+            if ((int)num == 0)
+            {
+                FirstLineSolveThread();
+            }
+            else
+            {
+                OtherLineSolveThread((int)num);
+            }
+        }
+
+        private void FirstLineSolveThread()
+        {
+
+        }
+
+        private void OtherLineSolveThread(int solvingNumber)
+        {
+
+        }
+
 
         public string GetAnswerString()
         {
