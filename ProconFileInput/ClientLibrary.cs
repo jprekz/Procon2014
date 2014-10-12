@@ -22,9 +22,9 @@ namespace ProconFileInput
         public static string GetProblemID (int ProblemID){
 
             //writing after
-            var ServerURL = "";
-            var ProblemLocation = "";
-            var FileSavePath = "";
+            var ServerURL = "http://procon2014-practice.oknct-ict.org";
+            var ProblemLocation = "/problem/ppm/";
+            var FileSavePath = "C:\\";
 
             byte[] resource;
 
