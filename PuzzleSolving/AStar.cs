@@ -12,25 +12,13 @@ namespace PuzzleSolving
     {
         private Thread[] t = new Thread[2];
 
-        private byte[,] startCells;
-        private int selectMax,
-            selectCost,
-            swapCost,
-            CellsX,
-            CellsY;
         private Node ans;
 
         private Queue<Node> checkQueue = new Queue<Node>();
 
         public AStar(byte[,] c, int selectm, int selectc, int swapc)
+            : base(c, selectm, selectc, swapc)
         {
-            startCells = (byte[,])c.Clone();
-            selectMax = selectm;
-            selectCost = selectc;
-            swapCost = swapc;
-	        CellsX = startCells.GetLength(0);
-            CellsY = startCells.GetLength(1);
-
             t[0] = new Thread(new ThreadStart(SolveThread));
             t[1] = new Thread(new ThreadStart(CheckThread));
             foreach (Thread thread in t)
@@ -93,6 +81,7 @@ namespace PuzzleSolving
                     Node m = Swap(focus, e);
 
                     // 枝刈り
+                    if (m.Swaped.Reverse.Equals(focus.Swaped)) continue;
                     if (m.Heuristic > focus.Heuristic) continue;
                     if ((m.Heuristic == focus.Heuristic) && (m.SelectNum != focus.SelectNum)) continue;
 
@@ -149,9 +138,9 @@ namespace PuzzleSolving
         {
             int num,
                 h = 0;
-            for (int y = 0; y != CellsY; y++)
+            for (int y = 0; y != cellsY; y++)
             {
-                for (int x = 0; x != CellsX; x++)
+                for (int x = 0; x != cellsX; x++)
                 {
                     num = cells[x, y];
                     h += (Math.Abs(num / 16 - x) + Math.Abs(num % 16 - y));
@@ -187,17 +176,17 @@ namespace PuzzleSolving
 
         private Edge[] NewAllEdges()
         {
-            Edge[] allEdge = new Edge[CellsX * CellsY * 4 - (CellsX + CellsY) * 2];
+            Edge[] allEdge = new Edge[cellsX * cellsY * 4 - (cellsX + cellsY) * 2];
             int counter = 0;
-            for (int y = 0; y != CellsY; y++)
+            for (int y = 0; y != cellsY; y++)
             {
-                for (int x = 0; x != CellsX; x++)
+                for (int x = 0; x != cellsX; x++)
                 {
                     if (y != 0)
                     {
                         allEdge[counter++] = new Edge(x, y, Direction.U);
                     }
-                    if (y != CellsY - 1)
+                    if (y != cellsY - 1)
                     {
                         allEdge[counter++] = new Edge(x, y, Direction.D);
                     }
@@ -205,7 +194,7 @@ namespace PuzzleSolving
                     {
                         allEdge[counter++] = new Edge(x, y, Direction.L);
                     }
-                    if (x != CellsX - 1)
+                    if (x != cellsX - 1)
                     {
                         allEdge[counter++] = new Edge(x, y, Direction.R);
                     }
@@ -218,14 +207,14 @@ namespace PuzzleSolving
         {
             int x = selecting / 16,
                 y = selecting % 16;
-            Edge[] edges = new Edge[(4 - ((x == 0 || x == CellsX - 1) ? 1 : 0) - ((y == 0 || y == CellsY - 1) ? 1 : 0))];
+            Edge[] edges = new Edge[(4 - ((x == 0 || x == cellsX - 1) ? 1 : 0) - ((y == 0 || y == cellsY - 1) ? 1 : 0))];
 
             int counter = 0;
             if (y != 0)
             {
                 edges[counter++] = new Edge(x, y, Direction.U);
             }
-            if (y != CellsY - 1)
+            if (y != cellsY - 1)
             {
                 edges[counter++] = new Edge(x, y, Direction.D);
             }
@@ -233,7 +222,7 @@ namespace PuzzleSolving
             {
                 edges[counter++] = new Edge(x, y, Direction.L);
             }
-            if (x != CellsX - 1)
+            if (x != cellsX - 1)
             {
                 edges[counter++] = new Edge(x, y, Direction.R);
             }

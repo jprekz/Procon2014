@@ -17,14 +17,13 @@ namespace PuzzleSolving
         private Queue<Node> checkQueue = new Queue<Node>();
 
         public ParallelSearch(byte[,] c, int selectm, int selectc, int swapc)
+            : base(c, selectm, selectc, swapc)
         {
-            game = new Game(c, selectm, selectc, swapc);
+            close = new List<Node>[selectMax];
+            open = new PriorityQueue<Node>[selectMax];
 
-            close = new List<Node>[game.SelectMax];
-            open = new PriorityQueue<Node>[game.SelectMax];
-
-            solving = new Thread[game.SelectMax];
-            for (int i = 0; i < game.SelectMax; i++)
+            solving = new Thread[selectMax];
+            for (int i = 0; i < selectMax; i++)
             {
                 solving[i] = new Thread(new ParameterizedThreadStart(SolveThread));
             }

@@ -6,9 +6,24 @@ using System.Threading.Tasks;
 
 namespace PuzzleSolving
 {
-    abstract class PuzzleSolving : IPuzzleSolving
+    public abstract class PuzzleSolving : IPuzzleSolving
     {
-        protected Game game;
+        protected readonly byte[,] startCells;
+        protected readonly int selectMax,
+            selectCost,
+            swapCost,
+            cellsX,
+            cellsY;
+
+        public PuzzleSolving(byte[,] c, int selectm, int selectc, int swapc)
+        {
+            startCells = (byte[,])c.Clone();
+            selectMax = selectm;
+            selectCost = selectc;
+            swapCost = swapc;
+	        cellsX = startCells.GetLength(0);
+            cellsY = startCells.GetLength(1);
+        }
 
         public abstract void Start();
 

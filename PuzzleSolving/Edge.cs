@@ -21,6 +21,7 @@ namespace PuzzleSolving
             Selected = (byte)(x * 16 + y);
             Swap = d;
         }
+
         public byte NextSelect
         {
             get
@@ -36,10 +37,11 @@ namespace PuzzleSolving
                     case Direction.L:
                         return (byte)(Selected - 16);
                     default:
-                        return Selected;    // arienkakkowara
+                        throw new NotImplementedException();
                 }
             }
         }
+
         public int x
         {
             get
@@ -86,6 +88,44 @@ namespace PuzzleSolving
                         return y;
                 }
             }
+        }
+
+        public Edge Reverse
+        {
+            get
+            {
+                switch (Swap)
+                {
+                    case Direction.U:
+                        return new Edge(nextx, nexty, Direction.D);
+                    case Direction.D:
+                        return new Edge(nextx, nexty, Direction.U);
+                    case Direction.R:
+                        return new Edge(nextx, nexty, Direction.L);
+                    case Direction.L:
+                        return new Edge(nextx, nexty, Direction.R);
+                    default:
+                        throw new NotImplementedException();
+                }
+            }
+        }
+
+        public override bool Equals(object ob)
+        {
+            if (ob is Edge)
+            {
+                Edge c = (Edge)ob;
+                return Selected == c.Selected && Swap == c.Swap;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
         }
 
         public override string ToString()
