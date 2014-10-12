@@ -30,7 +30,7 @@
         {
             this.fileSelect = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.decide = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -53,22 +53,22 @@
             this.pictureBox1.TabStop = false;
             this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
-            // button1
+            // decide
             // 
-            this.button1.Location = new System.Drawing.Point(558, 12);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "確定";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.decide.Location = new System.Drawing.Point(558, 12);
+            this.decide.Name = "decide";
+            this.decide.Size = new System.Drawing.Size(75, 23);
+            this.decide.TabIndex = 2;
+            this.decide.Text = "確定";
+            this.decide.UseVisualStyleBackColor = true;
+            this.decide.Click += new System.EventHandler(this.decide_Click);
             // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(645, 569);
-            this.Controls.Add(this.button1);
+            this.ClientSize = new System.Drawing.Size(646, 570);
+            this.Controls.Add(this.decide);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.fileSelect);
             this.Name = "Main";
@@ -82,7 +82,7 @@
 
         private System.Windows.Forms.Button fileSelect;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button decide;
 
     }
 }

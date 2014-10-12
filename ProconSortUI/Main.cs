@@ -72,7 +72,7 @@ namespace ProconSortUI
             pictureBox1.Image = ir.resize(ic.ppmCut(drawpiece), 500);
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void decide_Click(object sender, EventArgs e)
         {
             piecesform.Close();
         }
