@@ -6,22 +6,31 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Net;
 
+/*
+ *  #Todo
+ *  - FileSavePathの値の設定を外部から行えるようにする
+ *      - XMLとかCSVとか？
+ *  - エラー処理
+ *      - タイムアウト(403も), 404, etc...
+ */
+
 namespace ProconFileInput
 {
     class ClientLibrary
     {
         
-        public static string getProblemID (int ProblemID){
+        public static string GetProblemID (int ProblemID){
+
             //writing after
             var ServerURL = "";
-            var PloblemLocation = "";
+            var ProblemLocation = "";
             var FileSavePath = "";
 
             byte[] resource;
 
             using (var webclient = new WebClient())
             {
-                resource =  webclient.DownloadData("http://" + ServerURL + PloblemLocation + GetProblemFileName(ProblemID));
+                resource =  webclient.DownloadData("http://" + ServerURL + ProblemLocation + GetProblemFileName(ProblemID));
             }
 
             using (var SaveFile = File.OpenWrite(FileSavePath))
