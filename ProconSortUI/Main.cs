@@ -18,7 +18,7 @@ namespace ProconSortUI
             InitializeComponent();
         }
 
-        byte[] drawpiece;
+        public byte[] drawpiece;
         public byte[] selectpiece = new byte[2];
         Pieces piecesform;
 
