@@ -16,9 +16,10 @@ namespace PuzzleSolving
         private PriorityQueue<Node>[] open;
         private Queue<Node> checkQueue = new Queue<Node>();
 
-        public ParallelSearch(Game g)
-            : base(g)
+        public ParallelSearch(byte[,] c, int selectm, int selectc, int swapc)
         {
+            game = new Game(c, selectm, selectc, swapc);
+
             close = new List<Node>[game.SelectMax];
             open = new PriorityQueue<Node>[game.SelectMax];
 

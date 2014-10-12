@@ -38,8 +38,7 @@ namespace Procon2014
                 }
             }
 
-            Game g = new Game(cells, ppme.ppmd.picsetrepeat, ppme.ppmd.picsetrate, ppme.ppmd.picmoverate);
-            p = new AStar(g);
+            p = new AStar(cells, ppme.ppmd.picsetrepeat, ppme.ppmd.picsetrate, ppme.ppmd.picmoverate);
         }
 
         private void buttonStart_Click(object sender, EventArgs e)

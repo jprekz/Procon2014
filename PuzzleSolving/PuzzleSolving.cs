@@ -6,14 +6,9 @@ using System.Threading.Tasks;
 
 namespace PuzzleSolving
 {
-    public abstract class PuzzleSolving : IPuzzleSolving
+    abstract class PuzzleSolving : IPuzzleSolving
     {
         protected Game game;
-
-        public PuzzleSolving(Game g)
-        {
-            game = g;
-        }
 
         public abstract void Start();
 
