@@ -16,10 +16,10 @@ using System.Net;
 
 namespace ProconFileInput
 {
-    class ClientLibrary
+    public class ClientLibrary
     {
         
-        public static string GetProblemID (int ProblemID){
+        public string GetProblemID (int ProblemID){
 
             //writing after
             var ServerURL = "";
@@ -41,7 +41,7 @@ namespace ProconFileInput
             return FileSavePath;
         }
 
-        public static string GetProblemFileName(int problemID)
+        public string GetProblemFileName(int problemID)
         {
             string ProblemFileNameFormat = "prob{0:D2}.ppm";
             return string.Format(ProblemFileNameFormat, problemID);

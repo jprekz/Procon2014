@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ProgramingContestImageSort;
+using ProconFileInput;
 
 namespace ProconSortUI
 {
@@ -24,14 +25,17 @@ namespace ProconSortUI
 
         private void fileSelect_Click(object sender, EventArgs e)
         {
-            OpenFileDialog ofd = new OpenFileDialog();
+            //OpenFileDialog ofd = new OpenFileDialog();
+            var cl = new ClientLibrary();
             var isort = new ImageSort();
             var ic = new ImageCreate();
             var pieces = new Pieces();
             piecesform = new Pieces();
             var ir = new ImageResize();
-            ofd.ShowDialog();
-            var sortedpiece = isort.sort(ofd.FileName);
+            //ofd.ShowDialog();
+            var id = new InputDialog();
+            id.ShowDialog();
+            var sortedpiece = isort.sort(cl.GetProblemID(id.result));
             string piecesline = "";
             piecesline += sortedpiece[0].ToString() + " " + sortedpiece[1].ToString();
             for (int i = 2; i < sortedpiece.Length; i+=2 )

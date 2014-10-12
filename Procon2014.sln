@@ -13,6 +13,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PuzzleSolving", "PuzzleSolving\PuzzleSolving.csproj", "{3D8759A7-BD42-45D1-B54A-9BF75FCEC36F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProconSortUI", "ProconSortUI\ProconSortUI.csproj", "{37718F2A-135B-48A5-9F22-9493B8FDB860}"
+	ProjectSection(ProjectDependencies) = postProject
+		{D00E8104-5C7D-4967-8BED-7AD8D400A5F0} = {D00E8104-5C7D-4967-8BED-7AD8D400A5F0}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProconFileInput", "ProconFileInput\ProconFileInput.csproj", "{D00E8104-5C7D-4967-8BED-7AD8D400A5F0}"
 EndProject
