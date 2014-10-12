@@ -22,15 +22,16 @@ namespace ProconFileInput
         public string GetProblemID (int ProblemID){
 
             //writing after
-            var ServerURL = "";
-            var ProblemLocation = "";
-            var FileSavePath = "";
+            var ServerURL = "http://procon2014-practice.oknct-ict.org";
+            var ProblemLocation = "/problem/ppm/";
+            var FileSavePath = "C:\\";
 
             byte[] resource;
 
             using (var webclient = new WebClient())
             {
-                resource =  webclient.DownloadData("http://" + ServerURL + ProblemLocation + GetProblemFileName(ProblemID));
+               //resource =  webclient.DownloadData("http://" + ServerURL + ProblemLocation + GetProblemFileName(ProblemID));
+               resource =  webclient.DownloadData("http://" + ServerURL + ProblemLocation + ProblemID);
             }
 
             using (var SaveFile = File.OpenWrite(FileSavePath))
