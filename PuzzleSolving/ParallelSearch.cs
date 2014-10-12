@@ -7,39 +7,34 @@ using System.Threading.Tasks;
 
 namespace PuzzleSolving
 {
-    class ParallelSearch : IPuzzleSolving
+    public class ParallelSearch : IPuzzleSolving
     {
         private Thread[] solving;
         private Thread checking;
 
-        private byte[,] startCells;
-        private int selectMax,
-            selectCost,
-            swapCost,
-            CellsX,
-            CellsY;
+        private Game game;
 
         private List<Node>[] close;
+        private PriorityQueue<Node>[] open;
         private Queue<Node> checkQueue = new Queue<Node>();
 
         public ParallelSearch(byte[,] c, int selectm, int selectc, int swapc)
         {
-            startCells = (byte[,])c.Clone();
-            selectMax = selectm;
-            selectCost = selectc;
-            swapCost = swapc;
-	        CellsX = startCells.GetLength(0);
-            CellsY = startCells.GetLength(1);
+            game = new Game(c, selectm, selectc, swapc);
 
-            solving = new Thread[selectMax];
-            for (int i = 0; i < selectMax; i++)
+            close = new List<Node>[game.SelectMax];
+            open = new PriorityQueue<Node>[game.SelectMax];
+
+            solving = new Thread[game.SelectMax];
+            for (int i = 0; i < game.SelectMax; i++)
             {
                 solving[i] = new Thread(new ParameterizedThreadStart(SolveThread));
             }
         }
+
         public void Start()
         {
-            for (int i = 0; i < selectMax; i++)
+            for (int i = 0; i < solving.Length; i++)
             {
                 if (!solving[i].IsAlive) solving[i].Start(i);
             }

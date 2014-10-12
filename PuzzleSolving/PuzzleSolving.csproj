@@ -41,6 +41,7 @@
   <ItemGroup>
     <Compile Include="AStar.cs" />
     <Compile Include="Edge.cs" />
+    <Compile Include="Game.cs" />
     <Compile Include="IPuzzleSolving.cs" />
     <Compile Include="Node.cs" />
     <Compile Include="ParallelSearch.cs" />
