@@ -16,7 +16,7 @@ using System.Net;
 
 namespace ProconFileInput
 {
-    class ClientLibrary
+     class ClientLibrary
     {
         
         public static string GetProblemID (int ProblemID){
@@ -30,7 +30,8 @@ namespace ProconFileInput
 
             using (var webclient = new WebClient())
             {
-                resource =  webclient.DownloadData("http://" + ServerURL + ProblemLocation + GetProblemFileName(ProblemID));
+               //resource =  webclient.DownloadData("http://" + ServerURL + ProblemLocation + GetProblemFileName(ProblemID));
+               resource =  webclient.DownloadData("http://" + ServerURL + ProblemLocation + ProblemID);
             }
 
             using (var SaveFile = File.OpenWrite(FileSavePath))
