@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace PuzzleSolving
 {
-    enum Direction
+    public enum Direction
     {
         U, D, R, L
     }
 
-    struct Edge
+    public struct Edge
     {
         public byte Selected;
         public Direction Swap;
