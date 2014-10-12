@@ -25,14 +25,12 @@ namespace ProconSortUI
 
         private void fileSelect_Click(object sender, EventArgs e)
         {
-            //OpenFileDialog ofd = new OpenFileDialog();
             var cl = new ClientLibrary();
             var isort = new ImageSort();
             var ic = new ImageCreate();
             var pieces = new Pieces();
             piecesform = new Pieces();
             var ir = new ImageResize();
-            //ofd.ShowDialog();
             var id = new InputDialog();
             id.ShowDialog();
             var sortedpiece = isort.sort(cl.GetProblemID(id.result));
@@ -79,6 +77,7 @@ namespace ProconSortUI
         private void decide_Click(object sender, EventArgs e)
         {
             piecesform.Close();
+            this.Close();
         }
     }
 }

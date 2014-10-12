@@ -24,7 +24,7 @@ namespace ProconFileInput
             //writing after
             var ServerURL = "http://procon2014-practice.oknct-ict.org";
             var ProblemLocation = "/problem/ppm/";
-            var FileSavePath = "C:\\Users\\PAKUTOMA\\Desktop\\";
+            var FileSavePath = "C:\\Users\\" + Environment.UserName + "\\Desktop\\";
 
             byte[] resource;
 
