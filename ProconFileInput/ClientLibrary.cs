@@ -11,7 +11,7 @@ namespace ProconFileInput
     class ClientLibrary
     {
         
-        public static string getProblemID (int ProblemID){
+        public static string GetProblemID (int ProblemID){
             //writing after
             var ServerURL = "";
             var ProblemLocation = "";
