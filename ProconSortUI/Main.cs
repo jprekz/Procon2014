@@ -34,7 +34,7 @@ namespace ProconSortUI
             var sortedpiece = isort.sort(ofd.FileName);
             string piecesline = "";
             piecesline += sortedpiece[0].ToString() + " " + sortedpiece[1].ToString();
-            for (int i = 2; i < sortedpiece.Length;i+=2 )
+            for (int i = 2; i < sortedpiece.Length; i+=2 )
             {
                 piecesline +=  "," + sortedpiece[i].ToString() + " " + sortedpiece[i + 1].ToString();
             }
