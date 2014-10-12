@@ -14,14 +14,14 @@ namespace ProconFileInput
         public static string getProblemID (int ProblemID){
             //writing after
             var ServerURL = "";
-            var PloblemLocation = "";
+            var ProblemLocation = "";
             var FileSavePath = "";
 
             byte[] resource;
 
             using (var webclient = new WebClient())
             {
-                resource =  webclient.DownloadData("http://" + ServerURL + PloblemLocation + GetProblemFileName(ProblemID));
+                resource =  webclient.DownloadData("http://" + ServerURL + ProblemLocation + GetProblemFileName(ProblemID));
             }
 
             using (var SaveFile = File.OpenWrite(FileSavePath))
