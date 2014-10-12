@@ -24,22 +24,22 @@ namespace ProconFileInput
             //writing after
             var ServerURL = "http://procon2014-practice.oknct-ict.org";
             var ProblemLocation = "/problem/ppm/";
-            var FileSavePath = "C:\\";
+            var FileSavePath = "C:\\Users\\PAKUTOMA\\Desktop\\";
 
             byte[] resource;
 
             using (var webclient = new WebClient())
             {
                //resource =  webclient.DownloadData("http://" + ServerURL + ProblemLocation + GetProblemFileName(ProblemID));
-               resource =  webclient.DownloadData("http://" + ServerURL + ProblemLocation + ProblemID);
+               resource =  webclient.DownloadData(ServerURL + ProblemLocation + ProblemID);
             }
 
-            using (var SaveFile = File.OpenWrite(FileSavePath))
+            using (var SaveFile = File.OpenWrite(FileSavePath + GetProblemFileName(ProblemID)))
             {
                 SaveFile.Write(resource, 0, resource.Length);
             }
 
-            return FileSavePath;
+            return FileSavePath + GetProblemFileName(ProblemID);
         }
 
         public string GetProblemFileName(int problemID)
