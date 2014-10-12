@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
+VisualStudioVersion = 12.0.30723.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Procon2014", "Procon2014\Procon2014.csproj", "{04C7A09F-22F0-4C3E-9C45-AAE745772FAA}"
 EndProject
@@ -10,6 +10,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PuzzleSolving", "PuzzleSolving\PuzzleSolving.csproj", "{3D8759A7-BD42-45D1-B54A-9BF75FCEC36F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProconSortUI", "ProconSortUI\ProconSortUI.csproj", "{37718F2A-135B-48A5-9F22-9493B8FDB860}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProconFileInput", "ProconFileInput\ProconFileInput.csproj", "{D00E8104-5C7D-4967-8BED-7AD8D400A5F0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,12 @@ Global
 		{37718F2A-135B-48A5-9F22-9493B8FDB860}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{37718F2A-135B-48A5-9F22-9493B8FDB860}.Release|Any CPU.Build.0 = Release|Any CPU
 		{37718F2A-135B-48A5-9F22-9493B8FDB860}.Release|x64.ActiveCfg = Release|Any CPU
+		{D00E8104-5C7D-4967-8BED-7AD8D400A5F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D00E8104-5C7D-4967-8BED-7AD8D400A5F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D00E8104-5C7D-4967-8BED-7AD8D400A5F0}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{D00E8104-5C7D-4967-8BED-7AD8D400A5F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D00E8104-5C7D-4967-8BED-7AD8D400A5F0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D00E8104-5C7D-4967-8BED-7AD8D400A5F0}.Release|x64.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
