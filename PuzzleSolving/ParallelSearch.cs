@@ -7,12 +7,10 @@ using System.Threading.Tasks;
 
 namespace PuzzleSolving
 {
-    public class ParallelSearch : IPuzzleSolving
+    public class ParallelSearch : PuzzleSolving
     {
         private Thread[] solving;
         private Thread checking;
-
-        private Game game;
 
         private List<Node>[] close;
         private PriorityQueue<Node>[] open;
@@ -32,7 +30,7 @@ namespace PuzzleSolving
             }
         }
 
-        public void Start()
+        public override void Start()
         {
             for (int i = 0; i < solving.Length; i++)
             {
@@ -40,7 +38,7 @@ namespace PuzzleSolving
             }
         }
 
-        public void Stop()
+        public override void Stop()
         {
             foreach (var t in solving)
             {
@@ -71,32 +69,14 @@ namespace PuzzleSolving
         }
 
 
-        public string GetAnswerString()
+        public override string GetAnswerString()
         {
             throw new NotImplementedException();
         }
 
-        public int GetAnswerCost()
+        public override int GetAnswerCost()
         {
             throw new NotImplementedException();
-        }
-
-        public event EventHandler FindBestAnswer;
-        protected virtual void OnFindBestAnswer(EventArgs e)
-        {
-            if (FindBestAnswer != null) FindBestAnswer(this, e);
-        }
-
-        public event EventHandler FindBetterAnswer;
-        protected virtual void OnFindBetterAnswer(EventArgs e)
-        {
-            if (FindBetterAnswer != null) FindBetterAnswer(this, e);
-        }
-
-        public event EventHandler SolvingError;
-        protected virtual void OnSolvingError(EventArgs e)
-        {
-            if (SolvingError != null) SolvingError(this, e);
         }
     }
 }

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace PuzzleSolving
 {
-    public class AStar : IPuzzleSolving
+    public class AStar : PuzzleSolving
     {
         private Thread[] t = new Thread[2];
 
@@ -39,7 +39,7 @@ namespace PuzzleSolving
             }
         }
 
-        public void Start()
+        public override void Start()
         {
             foreach (Thread thread in t)
             {
@@ -47,7 +47,7 @@ namespace PuzzleSolving
             }
         }
 
-        public void Stop()
+        public override void Stop()
         {
             foreach (Thread thread in t)
             {
@@ -240,7 +240,7 @@ namespace PuzzleSolving
             return edges;
         }
 
-        public string GetAnswerString()
+        public override string GetAnswerString()
         {
             Node n = ans;
             // 経路を遡る
@@ -273,27 +273,9 @@ namespace PuzzleSolving
             return answer;
         }
 
-        public int GetAnswerCost()
+        public override int GetAnswerCost()
         {
             return ans.Score;
-        }
-
-        public event EventHandler FindBestAnswer;
-        protected virtual void OnFindBestAnswer(EventArgs e)
-        {
-            if (FindBestAnswer != null) FindBestAnswer(this, e);
-        }
-
-        public event EventHandler FindBetterAnswer;
-        protected virtual void OnFindBetterAnswer(EventArgs e)
-        {
-            if (FindBetterAnswer != null) FindBetterAnswer(this, e);
-        }
-
-        public event EventHandler SolvingError;
-        protected virtual void OnSolvingError(EventArgs e)
-        {
-            if (SolvingError != null) SolvingError(this, e);
         }
     }
 }
