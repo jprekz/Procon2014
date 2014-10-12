@@ -103,6 +103,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ProconSortUI\ProconSortUI.csproj">
+      <Project>{37718f2a-135b-48a5-9f22-9493b8fdb860}</Project>
+      <Name>ProconSortUI</Name>
+    </ProjectReference>
     <ProjectReference Include="..\PuzzleSolving\PuzzleSolving.csproj">
       <Project>{3d8759a7-bd42-45d1-b54a-9bf75fcec36f}</Project>
       <Name>PuzzleSolving</Name>

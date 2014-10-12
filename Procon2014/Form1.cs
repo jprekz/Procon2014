@@ -10,6 +10,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using PuzzleSolving;
+using ProconSortUI;
 
 namespace Procon2014
 {
@@ -24,10 +25,8 @@ namespace Procon2014
 
         private void initializeManagement()
         {
-            ppmedit ppme = new ppmedit();
-            OpenFileDialog ofd = new OpenFileDialog();
-            ofd.ShowDialog();
-            byte[,] sorted = ppme.picsortToByte(ofd.FileName);
+            var gsp = new GetSortedPiece();
+            byte[,] sorted = gsp.getsortedpiece();
             byte[,] cells = (byte[,])sorted.Clone();
             for (int y = 0; y != cells.GetLength(1); y++)
             {
@@ -38,7 +37,7 @@ namespace Procon2014
                 }
             }
 
-            p = new AStar(cells, ppme.ppmd.picsetrepeat, ppme.ppmd.picsetrate, ppme.ppmd.picmoverate);
+            p = new AStar(cells, PpmData.picSetRepeat, PpmData.picSetRate, PpmData.picMoveRate);
         }
 
         private void buttonStart_Click(object sender, EventArgs e)

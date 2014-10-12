@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{37718F2A-135B-48A5-9F22-9493B8FDB860}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ProconSortUI</RootNamespace>
     <AssemblyName>ProconSortUI</AssemblyName>
@@ -31,6 +31,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -45,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EdgeCompare.cs" />
+    <Compile Include="GetSortedPiece.cs" />
     <Compile Include="ImageConstruct.cs" />
     <Compile Include="ImageCreate.cs" />
     <Compile Include="ImageResize.cs" />
