@@ -48,11 +48,10 @@ namespace PuzzleSolving
             PriorityQueue<Node> open = new PriorityQueue<Node>(65536);
             List<Node> close = new List<Node>(65536);
             Node focus = new Node(startCells, 0, 0, Heuristic(startCells), null, new Edge(), Heuristic(startCells));
-            Edge[] allEdges = NewAllEdges();
             ans = focus;
             int test1, test2;
 
-            foreach (Edge e in allEdges)
+            foreach (Edge e in AllEdges)
             {
                 Node n = FirstSwap(focus, e);
                 if (n.Heuristic >= focus.Heuristic) continue;
@@ -71,17 +70,16 @@ namespace PuzzleSolving
                 close.Add(focus);
                 open.RemoveAt(0);
 
-                Edge[] edges = (focus.SelectNum == selectMax) ? NewLastLineEdges(focus.Selecting) : allEdges;
+                Node[] nextNodes = (focus.SelectNum == selectMax) ?
+                    NextKeepLineNodes(focus) :
+                    NextAllNodes(focus);
 
                 test1 = 0;
-                test2 = edges.Count();
+                test2 = nextNodes.Count();
 
-                foreach (Edge e in edges)
+                foreach (Node m in nextNodes)
                 {
-                    Node m = Swap(focus, e);
-
                     // 枝刈り
-                    if (m.Swaped.Reverse.Equals(focus.Swaped)) continue;
                     if (m.Heuristic > focus.Heuristic) continue;
                     if ((m.Heuristic == focus.Heuristic) && (m.SelectNum != focus.SelectNum)) continue;
 
@@ -132,33 +130,6 @@ namespace PuzzleSolving
                 Thread.Sleep(50);
                 Console.WriteLine("----------------------------------------" + checkQueue.Count);
             }
-        }
-
-
-        private Edge[] NewLastLineEdges(byte selecting)
-        {
-            int x = selecting / 16,
-                y = selecting % 16;
-            Edge[] edges = new Edge[(4 - ((x == 0 || x == cellsX - 1) ? 1 : 0) - ((y == 0 || y == cellsY - 1) ? 1 : 0))];
-
-            int counter = 0;
-            if (y != 0)
-            {
-                edges[counter++] = new Edge(x, y, Direction.U);
-            }
-            if (y != cellsY - 1)
-            {
-                edges[counter++] = new Edge(x, y, Direction.D);
-            }
-            if (x != 0)
-            {
-                edges[counter++] = new Edge(x, y, Direction.L);
-            }
-            if (x != cellsX - 1)
-            {
-                edges[counter++] = new Edge(x, y, Direction.R);
-            }
-            return edges;
         }
 
         public override string GetAnswerString()
