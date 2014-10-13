@@ -47,14 +47,13 @@ namespace PuzzleSolving
         {
             PriorityQueue<Node> open = new PriorityQueue<Node>(65536);
             List<Node> close = new List<Node>(65536);
-            Node focus = new Node(startCells, 0, 0, Heuristic(startCells), null, new Edge(), Heuristic(startCells));
-            ans = focus;
-            int test1, test2;
+            Node focus;
+            int passNodes, num;
 
-            foreach (Edge e in AllEdges)
+            Node[] firstNodes = NewFirstNodes();
+            foreach (Node n in firstNodes)
             {
-                Node n = FirstSwap(focus, e);
-                if (n.Heuristic >= focus.Heuristic) continue;
+                if (n.Heuristic >= Heuristic(startCells)) continue;
                 open.Push(n);
             }
 
@@ -74,16 +73,14 @@ namespace PuzzleSolving
                     NextKeepLineNodes(focus) :
                     NextAllNodes(focus);
 
-                test1 = 0;
-                test2 = nextNodes.Count();
-
+                passNodes = 0;
                 foreach (Node m in nextNodes)
                 {
                     // 枝刈り
                     if (m.Heuristic > focus.Heuristic) continue;
                     if ((m.Heuristic == focus.Heuristic) && (m.SelectNum != focus.SelectNum)) continue;
 
-                    int num;
+                    passNodes++;
                     if ((num = close.LastIndexOf(m)) != -1)
                     {
                         // 要らなくね
@@ -106,9 +103,8 @@ namespace PuzzleSolving
                         open.Push(m);
                         lock (((ICollection)checkQueue).SyncRoot) checkQueue.Enqueue(m);
                     }
-                    test1++;
                 }
-                Console.WriteLine("op:" + open.Count + " cl:" + close.Count + " pass:" + test1 + "/" + test2 + " f:" + focus.Score);
+                Console.WriteLine("op:" + open.Count + " cl:" + close.Count + " pass:" + passNodes + "/" + nextNodes.Count() + " f:" + focus.Score);
             }
         }
 
@@ -120,7 +116,8 @@ namespace PuzzleSolving
                 while (checkQueue.Count != 0)
                 {
                     lock (((ICollection)checkQueue).SyncRoot) n = checkQueue.Dequeue();
-                    if ((ans.Heuristic > n.Heuristic) ||
+                    if ((ans == null) ||
+                        (ans.Heuristic > n.Heuristic) ||
                         ((ans.Heuristic == n.Heuristic) && (ans.Score > n.Score)))
                     {
                         ans = n;

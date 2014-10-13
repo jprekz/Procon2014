@@ -35,6 +35,19 @@ namespace PuzzleSolving
 
         public abstract int GetAnswerCost();
 
+
+        protected Node[] NewFirstNodes()
+        {
+            int p = 0;
+            Node[] nodes = new Node[AllEdges.Length];
+            Node firstNode = new Node(startCells, 0, 0, Heuristic(startCells), null, new Edge(), Heuristic(startCells));
+            foreach (Edge e in AllEdges)
+            {
+                nodes[p++] = FirstSwap(firstNode, e);
+            }
+            return nodes;
+        }
+
         protected Node[] NextNewLineNodes(Node n)
         {
             List<Node> nodes = new List<Node>();
