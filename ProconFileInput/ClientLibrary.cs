@@ -20,26 +20,36 @@ namespace ProconFileInput
     {
         
         public string GetProblemID (int ProblemID){
-
+            
             //writing after
             var ServerURL = "http://procon2014-practice.oknct-ict.org";
             var ProblemLocation = "/problem/ppm/";
             var FileSavePath = "C:\\Users\\" + Environment.UserName + "\\Desktop\\";
 
-            byte[] resource;
-
-            using (var webclient = new WebClient())
+            if (FilehavedownloadedFlag(FileSavePath + GetProblemFileName(ProblemID)))
             {
-               //resource =  webclient.DownloadData("http://" + ServerURL + ProblemLocation + GetProblemFileName(ProblemID));
-               resource =  webclient.DownloadData(ServerURL + ProblemLocation + ProblemID);
+                return (FileSavePath + GetProblemFileName(ProblemID));
             }
-
-            using (var SaveFile = File.OpenWrite(FileSavePath + GetProblemFileName(ProblemID)))
+            
+            else
             {
-                SaveFile.Write(resource, 0, resource.Length);
-            }
 
-            return FileSavePath + GetProblemFileName(ProblemID);
+                byte[] resource;
+
+                using (var webclient = new WebClient())
+                {
+                    //本番用URL
+                    //resource =  webclient.DownloadData("http://" + ServerURL + ProblemLocation + GetProblemFileName(ProblemID));
+                    resource =  webclient.DownloadData(ServerURL + ProblemLocation + ProblemID);
+                }
+
+                using (var SaveFile = File.OpenWrite(FileSavePath + GetProblemFileName(ProblemID)))
+                {
+                    SaveFile.Write(resource, 0, resource.Length);
+                }
+
+                return FileSavePath + GetProblemFileName(ProblemID);
+            }
         }
 
         public string GetProblemFileName(int problemID)
@@ -47,5 +57,12 @@ namespace ProconFileInput
             string ProblemFileNameFormat = "prob{0:D2}.ppm";
             return string.Format(ProblemFileNameFormat, problemID);
         }
+
+        public bool FilehavedownloadedFlag(string FilePath)
+        {
+            return File.Exists(FilePath);
+        }
+
+        
     }
 }
