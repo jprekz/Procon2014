@@ -47,15 +47,13 @@ namespace PuzzleSolving
         {
             PriorityQueue<Node> open = new PriorityQueue<Node>(65536);
             List<Node> close = new List<Node>(65536);
-            Node focus = new Node(startCells, 0, 0, Heuristic(startCells), null, new Edge(), Heuristic(startCells));
-            Edge[] allEdges = NewAllEdges();
-            ans = focus;
-            int test1, test2;
+            Node focus;
+            int passNodes, num;
 
-            foreach (Edge e in allEdges)
+            Node[] firstNodes = NewFirstNodes();
+            foreach (Node n in firstNodes)
             {
-                Node n = FirstSwap(focus, e);
-                if (n.Heuristic >= focus.Heuristic) continue;
+                if (n.Heuristic >= Heuristic(startCells)) continue;
                 open.Push(n);
             }
 
@@ -71,21 +69,18 @@ namespace PuzzleSolving
                 close.Add(focus);
                 open.RemoveAt(0);
 
-                Edge[] edges = (focus.SelectNum == selectMax) ? NewLastLineEdges(focus.Selecting) : allEdges;
+                Node[] nextNodes = (focus.SelectNum == selectMax) ?
+                    NextKeepLineNodes(focus) :
+                    NextAllNodes(focus);
 
-                test1 = 0;
-                test2 = edges.Count();
-
-                foreach (Edge e in edges)
+                passNodes = 0;
+                foreach (Node m in nextNodes)
                 {
-                    Node m = Swap(focus, e);
-
                     // 枝刈り
-                    if (m.Swaped.Reverse.Equals(focus.Swaped)) continue;
                     if (m.Heuristic > focus.Heuristic) continue;
                     if ((m.Heuristic == focus.Heuristic) && (m.SelectNum != focus.SelectNum)) continue;
 
-                    int num;
+                    passNodes++;
                     if ((num = close.LastIndexOf(m)) != -1)
                     {
                         // 要らなくね
@@ -108,9 +103,8 @@ namespace PuzzleSolving
                         open.Push(m);
                         lock (((ICollection)checkQueue).SyncRoot) checkQueue.Enqueue(m);
                     }
-                    test1++;
                 }
-                Console.WriteLine("op:" + open.Count + " cl:" + close.Count + " pass:" + test1 + "/" + test2 + " f:" + focus.Score);
+                Console.WriteLine("op:" + open.Count + " cl:" + close.Count + " pass:" + passNodes + "/" + nextNodes.Count() + " f:" + focus.Score);
             }
         }
 
@@ -122,7 +116,8 @@ namespace PuzzleSolving
                 while (checkQueue.Count != 0)
                 {
                     lock (((ICollection)checkQueue).SyncRoot) n = checkQueue.Dequeue();
-                    if ((ans.Heuristic > n.Heuristic) ||
+                    if ((ans == null) ||
+                        (ans.Heuristic > n.Heuristic) ||
                         ((ans.Heuristic == n.Heuristic) && (ans.Score > n.Score)))
                     {
                         ans = n;
@@ -132,101 +127,6 @@ namespace PuzzleSolving
                 Thread.Sleep(50);
                 Console.WriteLine("----------------------------------------" + checkQueue.Count);
             }
-        }
-
-        private int Heuristic(byte[,] cells)
-        {
-            int num,
-                h = 0;
-            for (int y = 0; y != cellsY; y++)
-            {
-                for (int x = 0; x != cellsX; x++)
-                {
-                    num = cells[x, y];
-                    h += (Math.Abs(num / 16 - x) + Math.Abs(num % 16 - y));
-                }
-            }
-            return h / 2 * swapCost;
-        }
-
-        private Node Swap(Node n, Edge e)
-        {
-            byte[,] nextCells = (byte[,])n.Cells.Clone();
-            byte buf = nextCells[e.x, e.y];
-            nextCells[e.x, e.y] = nextCells[e.nextx,e.nexty];
-            nextCells[e.nextx, e.nexty] = buf;
-            byte nextSelectNum = (n.Selecting == e.Selected) ? n.SelectNum : (byte)(n.SelectNum + 1);
-            int nextHeuristic = Heuristic(nextCells);
-            int nextScore = (n.Selecting == e.Selected) ?
-                n.Score - n.Heuristic + nextHeuristic + swapCost :
-                n.Score - n.Heuristic + nextHeuristic + swapCost + selectCost;
-            return new Node(nextCells, e.NextSelect, nextSelectNum, nextHeuristic, n, e, nextScore);
-        }
-
-        private Node FirstSwap(Node n, Edge e)
-        {
-            byte[,] nextCells = (byte[,])n.Cells.Clone();
-            byte buf = nextCells[e.x, e.y];
-            nextCells[e.x, e.y] = nextCells[e.nextx,e.nexty];
-            nextCells[e.nextx, e.nexty] = buf;
-            int nextHeuristic = Heuristic(nextCells);
-            int nextScore = nextHeuristic + swapCost + selectCost;
-            return new Node(nextCells, e.NextSelect, 1, nextHeuristic, n, e, nextScore);
-        }
-
-        private Edge[] NewAllEdges()
-        {
-            Edge[] allEdge = new Edge[cellsX * cellsY * 4 - (cellsX + cellsY) * 2];
-            int counter = 0;
-            for (int y = 0; y != cellsY; y++)
-            {
-                for (int x = 0; x != cellsX; x++)
-                {
-                    if (y != 0)
-                    {
-                        allEdge[counter++] = new Edge(x, y, Direction.U);
-                    }
-                    if (y != cellsY - 1)
-                    {
-                        allEdge[counter++] = new Edge(x, y, Direction.D);
-                    }
-                    if (x != 0)
-                    {
-                        allEdge[counter++] = new Edge(x, y, Direction.L);
-                    }
-                    if (x != cellsX - 1)
-                    {
-                        allEdge[counter++] = new Edge(x, y, Direction.R);
-                    }
-                }
-            }
-            return allEdge;
-        }
-
-        private Edge[] NewLastLineEdges(byte selecting)
-        {
-            int x = selecting / 16,
-                y = selecting % 16;
-            Edge[] edges = new Edge[(4 - ((x == 0 || x == cellsX - 1) ? 1 : 0) - ((y == 0 || y == cellsY - 1) ? 1 : 0))];
-
-            int counter = 0;
-            if (y != 0)
-            {
-                edges[counter++] = new Edge(x, y, Direction.U);
-            }
-            if (y != cellsY - 1)
-            {
-                edges[counter++] = new Edge(x, y, Direction.D);
-            }
-            if (x != 0)
-            {
-                edges[counter++] = new Edge(x, y, Direction.L);
-            }
-            if (x != cellsX - 1)
-            {
-                edges[counter++] = new Edge(x, y, Direction.R);
-            }
-            return edges;
         }
 
         public override string GetAnswerString()

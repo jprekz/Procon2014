@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PuzzleSolving
 {
-    class Node : IComparable<Node>
+    public class Node : IComparable<Node>
     {
         public readonly byte[,] Cells;
         public readonly byte Selecting;
