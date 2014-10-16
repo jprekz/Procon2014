@@ -15,7 +15,8 @@ namespace Procon2014
 {
     public partial class Form1 : Form
     {
-        private IPuzzleSolving p;
+        private IPuzzleSolving p1;
+        private IPuzzleSolving p2;
         private System.Diagnostics.Stopwatch sw;
         public Form1()
         {
@@ -36,8 +37,8 @@ namespace Procon2014
                 }
             }
 
-            //p = new AStar(cells, PpmData.picSetRepeat, PpmData.picSetRate, PpmData.picMoveRate);
-            p = new ParallelSearch(cells, PpmData.picSetRepeat, PpmData.picSetRate, PpmData.picMoveRate);
+            p1 = new AStar(cells, PpmData.picSetRepeat, PpmData.picSetRate, PpmData.picMoveRate);
+            p2 = new ParallelSearch(cells, PpmData.picSetRepeat, PpmData.picSetRate, PpmData.picMoveRate);
         }
 
         private void buttonStart_Click(object sender, EventArgs e)
@@ -45,28 +46,53 @@ namespace Procon2014
             buttonStart.Enabled = false;
             initializeManagement();
             sw = System.Diagnostics.Stopwatch.StartNew();
-            p.FindBestAnswer += p_FindBestAnswer;
-            p.FindBetterAnswer += p_FindBetterAnswer;
-            p.Start();
+            p1.FindBestAnswer += p1_FindBestAnswer;
+            p2.FindBestAnswer += p2_FindBestAnswer;
+            p1.FindBetterAnswer += p1_FindBetterAnswer;
+            p2.FindBetterAnswer += p2_FindBetterAnswer;
+            p1.Start();
+            p2.Start();
         }
 
-        void p_FindBestAnswer(object sender, EventArgs e)
+        void p1_FindBestAnswer(object sender, EventArgs e)
         {
             this.BeginInvoke((MethodInvoker)delegate()
             {
-                this.textBox1.Text = p.GetAnswerString();
-                this.Text = "Done " + sw.Elapsed;
-                sw.Stop();
-                p.Stop();
+                this.textBox1.Text = "Done " + sw.Elapsed;
+                this.textBox1.Text += Environment.NewLine;
+                this.textBox1.Text += p1.GetAnswerString();
+                p1.Stop();
             });
         }
 
-        void p_FindBetterAnswer(object sender, EventArgs e)
+        void p2_FindBestAnswer(object sender, EventArgs e)
         {
             this.BeginInvoke((MethodInvoker)delegate()
             {
-                this.textBox1.Text = p.GetAnswerString();
-                this.Text = "Not best " + sw.Elapsed;
+                this.textBox2.Text = "Done " + sw.Elapsed;
+                this.textBox1.Text += Environment.NewLine;
+                this.textBox2.Text += p2.GetAnswerString();
+                p2.Stop();
+            });
+        }
+
+        void p1_FindBetterAnswer(object sender, EventArgs e)
+        {
+            this.BeginInvoke((MethodInvoker)delegate()
+            {
+                this.textBox1.Text = "Not best " + sw.Elapsed;
+                this.textBox1.Text += Environment.NewLine;
+                this.textBox1.Text += p1.GetAnswerString();
+            });
+        }
+
+        void p2_FindBetterAnswer(object sender, EventArgs e)
+        {
+            this.BeginInvoke((MethodInvoker)delegate()
+            {
+                this.textBox2.Text = "Not best " + sw.Elapsed;
+                this.textBox1.Text += Environment.NewLine;
+                this.textBox2.Text += p2.GetAnswerString();
             });
         }
     }
