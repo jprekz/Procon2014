@@ -46,7 +46,7 @@
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
             this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox1.Size = new System.Drawing.Size(236, 398);
+            this.textBox1.Size = new System.Drawing.Size(386, 498);
             this.textBox1.TabIndex = 0;
             // 
             // tableLayoutPanel1
@@ -66,7 +66,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(484, 462);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(784, 562);
             this.tableLayoutPanel1.TabIndex = 1;
             // 
             // buttonStart
@@ -84,16 +84,16 @@
             this.textBox2.AcceptsReturn = true;
             this.textBox2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.textBox2.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.textBox2.Location = new System.Drawing.Point(245, 32);
+            this.textBox2.Location = new System.Drawing.Point(395, 32);
             this.textBox2.Multiline = true;
             this.textBox2.Name = "textBox2";
             this.textBox2.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox2.Size = new System.Drawing.Size(236, 398);
+            this.textBox2.Size = new System.Drawing.Size(386, 498);
             this.textBox2.TabIndex = 2;
             // 
             // submit1
             // 
-            this.submit1.Location = new System.Drawing.Point(3, 436);
+            this.submit1.Location = new System.Drawing.Point(3, 536);
             this.submit1.Name = "submit1";
             this.submit1.Size = new System.Drawing.Size(75, 23);
             this.submit1.TabIndex = 3;
@@ -102,7 +102,7 @@
             // 
             // submit2
             // 
-            this.submit2.Location = new System.Drawing.Point(245, 436);
+            this.submit2.Location = new System.Drawing.Point(395, 536);
             this.submit2.Name = "submit2";
             this.submit2.Size = new System.Drawing.Size(75, 23);
             this.submit2.TabIndex = 4;
@@ -113,7 +113,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(484, 462);
+            this.ClientSize = new System.Drawing.Size(784, 562);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "Form1";

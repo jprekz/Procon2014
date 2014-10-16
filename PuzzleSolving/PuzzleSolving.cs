@@ -31,10 +31,7 @@ namespace PuzzleSolving
 
         public abstract void Stop();
 
-        public abstract string GetAnswerString();
-
-        public abstract int GetAnswerCost();
-
+        public abstract Answer GetAnswer();
 
         protected Node[] NewFirstNodes()
         {
@@ -165,6 +162,39 @@ namespace PuzzleSolving
                 }
             }
             return allEdge;
+        }
+
+
+        protected string GetAnswerString(Node n)
+        {
+            // 経路を遡る
+            Node back = n;
+            List<Edge> route = new List<Edge>();
+            while (back.From != null)
+            {
+                route.Add(back.Swaped);
+                back = back.From;
+            }
+            route.Reverse();
+            // わさわさ文字列操作
+            string NL = Environment.NewLine;
+            string answer = "";
+            answer += n.SelectNum + NL;
+            for (int i = 0; i != n.SelectNum; i++)
+            {
+                answer += route[0].Selected.ToString("X2") + NL;
+
+                string buf = "" + route[0].Swap;
+                while (route.Count != 1 && route[0].NextSelect == route[1].Selected)
+                {
+                    buf += route[1].Swap;
+                    route.RemoveAt(0);
+                }
+                route.RemoveAt(0);
+
+                answer += buf.Length + NL + buf + NL;
+            }
+            return answer;
         }
 
 

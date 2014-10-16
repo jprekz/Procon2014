@@ -60,7 +60,7 @@ namespace Procon2014
             {
                 this.textBox1.Text = "Done " + sw.Elapsed;
                 this.textBox1.Text += Environment.NewLine;
-                this.textBox1.Text += p1.GetAnswerString();
+                this.textBox1.Text += p1.GetAnswer();
                 p1.Stop();
             });
         }
@@ -70,8 +70,8 @@ namespace Procon2014
             this.BeginInvoke((MethodInvoker)delegate()
             {
                 this.textBox2.Text = "Done " + sw.Elapsed;
-                this.textBox1.Text += Environment.NewLine;
-                this.textBox2.Text += p2.GetAnswerString();
+                this.textBox2.Text += Environment.NewLine;
+                this.textBox2.Text += p2.GetAnswer();
                 p2.Stop();
             });
         }
@@ -82,7 +82,7 @@ namespace Procon2014
             {
                 this.textBox1.Text = "Not best " + sw.Elapsed;
                 this.textBox1.Text += Environment.NewLine;
-                this.textBox1.Text += p1.GetAnswerString();
+                this.textBox1.Text += p1.GetAnswer();
             });
         }
 
@@ -91,8 +91,8 @@ namespace Procon2014
             this.BeginInvoke((MethodInvoker)delegate()
             {
                 this.textBox2.Text = "Not best " + sw.Elapsed;
-                this.textBox1.Text += Environment.NewLine;
-                this.textBox2.Text += p2.GetAnswerString();
+                this.textBox2.Text += Environment.NewLine;
+                this.textBox2.Text += p2.GetAnswer();
             });
         }
     }

@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Answer.cs" />
     <Compile Include="AStar.cs" />
     <Compile Include="Edge.cs" />
     <Compile Include="IPuzzleSolving.cs" />
