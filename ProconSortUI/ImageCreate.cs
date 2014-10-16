@@ -44,14 +44,17 @@ namespace ProconSortUI
                 sortedY = 0;
             }
             Bitmap bmp = new Bitmap(PpmData.picWidth, PpmData.picHeight);
+            var bmpplus = new BitmapPlus(bmp);
+            bmpplus.BeginAccess();
             for (int yCount = 0; yCount < PpmData.picHeight; yCount++)
             {
                 for (int xCount = 0; xCount < PpmData.picWidth; xCount++)
                 {
                     Color rgb = Color.FromArgb(sortedBmp[xCount, yCount, 0], sortedBmp[xCount, yCount, 1], sortedBmp[xCount, yCount, 2]);
-                    bmp.SetPixel(xCount, yCount, rgb);
+                    bmpplus.SetPixel(xCount, yCount, rgb);
                 }
             }
+            bmpplus.EndAccess();
             return bmp;
         }
     }
