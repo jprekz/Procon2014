@@ -100,6 +100,7 @@ namespace ProgramingContestImageSort
                         {
                             break;
                         }
+
                         if (nextpiece % PpmData.picDivision[0] == edge[0] && nextpiece / PpmData.picDivision[0] == edge[1] && edge[2] == 3)
                         {
                             nextpiece = edge[4] * PpmData.picDivision[0] + edge[3];
