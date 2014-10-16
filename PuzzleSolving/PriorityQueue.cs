@@ -8,7 +8,7 @@ namespace PuzzleSolving
 {
     class PriorityQueue<T> where T : IComparable<T>
     {
-        private List<T> ls;
+        public List<T> ls;
         private Compare cmp;
 
         public delegate int Compare(T a, T b);
