@@ -127,7 +127,7 @@ namespace PuzzleSolving
             return new Node(nextCells, e.NextSelect, nextSelectNum, nextHeuristic, n, e, nextScore);
         }
 
-        protected Node FirstSwap(Node n, Edge e)
+        private Node FirstSwap(Node n, Edge e)
         {
             byte[,] nextCells = (byte[,])n.Cells.Clone();
             byte buf = nextCells[e.x, e.y];
