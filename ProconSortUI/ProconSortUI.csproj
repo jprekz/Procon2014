@@ -107,9 +107,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ProconFileInput\ProconFileInput.csproj">
+    <ProjectReference Include="..\ProconFileIO\ProconFileIO.csproj">
       <Project>{d00e8104-5c7d-4967-8bed-7ad8d400a5f0}</Project>
-      <Name>ProconFileInput</Name>
+      <Name>ProconFileIO</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
