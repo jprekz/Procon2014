@@ -83,7 +83,6 @@ namespace PuzzleSolving
                 Node[] firstNodes = NewFirstNodes();
                 foreach (Node n in firstNodes)
                 {
-                    //if (n.Heuristic >= Heuristic(startCells)) continue;
                     open.Push(n);
                 }
             }
@@ -119,14 +118,9 @@ namespace PuzzleSolving
                 passNodes = 0;
                 foreach (Node m in nextNodes)
                 {
-                    // 枝刈り
-                    //if (m.Heuristic > focus.Heuristic) continue;
-                    //if ((m.Heuristic == focus.Heuristic) && (m.SelectNum != focus.SelectNum)) continue;
-
                     passNodes++;
                     if ((nodeNum = close.ls.LastIndexOf(m)) != -1)
                     {
-                        // 要らなくね
                         if (m.Score < close[nodeNum].Score)
                         {
                             open.Push(m);

@@ -93,7 +93,6 @@ namespace PuzzleSolving
                     passNodes++;
                     if ((num = close.LastIndexOf(m)) != -1)
                     {
-                        // 要らなくね
                         if (m.Score < close[num].Score)
                         {
                             open.Push(m);
