@@ -60,6 +60,16 @@ namespace PuzzleSolving
             if (checking.IsAlive) checking.Abort();
         }
 
+        public override Answer GetAnswer()
+        {
+            return new Answer
+            {
+                Str = GetAnswerString(ans),
+                Heauristic = ans.Heuristic,
+                Cost = ans.Score - ans.Heuristic
+            };
+        }
+
         private void SolveThread(object num)
         {
             int solvingNumber = (int)num;
@@ -73,7 +83,6 @@ namespace PuzzleSolving
                 Node[] firstNodes = NewFirstNodes();
                 foreach (Node n in firstNodes)
                 {
-                    //if (n.Heuristic >= Heuristic(startCells)) continue;
                     open.Push(n);
                 }
             }
@@ -91,7 +100,7 @@ namespace PuzzleSolving
                         Thread.Sleep(100);
                         continue;
                     }
-                    Node[] n = NextNewLineNodes(closeArray[solvingNumber - 1].ls.Last());
+                    Node[] n = NextNewLineNodes(closeArray[solvingNumber - 1][0]);
                     foreach (var m in n)
                     {
                         if (open.IndexOf(m) != -1) continue;
@@ -109,14 +118,9 @@ namespace PuzzleSolving
                 passNodes = 0;
                 foreach (Node m in nextNodes)
                 {
-                    // 枝刈り
-                    //if (m.Heuristic > focus.Heuristic) continue;
-                    //if ((m.Heuristic == focus.Heuristic) && (m.SelectNum != focus.SelectNum)) continue;
-
                     passNodes++;
                     if ((nodeNum = close.ls.LastIndexOf(m)) != -1)
                     {
-                        // 要らなくね
                         if (m.Score < close[nodeNum].Score)
                         {
                             open.Push(m);
@@ -161,46 +165,6 @@ namespace PuzzleSolving
                 Thread.Sleep(50);
                 Console.WriteLine("----------------------------------------" + checkQueue.Count);
             }
-        }
-
-
-
-        public override string GetAnswerString()
-        {
-            Node n = ans;
-            // 経路を遡る
-            Node back = n;
-            List<Edge> route = new List<Edge>();
-            while (back.From != null)
-            {
-                route.Add(back.Swaped);
-                back = back.From;
-            }
-            route.Reverse();
-            // わさわさ文字列操作
-            string NL = Environment.NewLine;
-            string answer = "---" + n.Heuristic/swapCost + " " + n.Score + NL;
-            answer += n.SelectNum + NL;
-            for (int i = 0; i != n.SelectNum; i++)
-            {
-                answer += route[0].Selected.ToString("X2") + NL;
-
-                string buf = "" + route[0].Swap;
-                while (route.Count != 1 && route[0].NextSelect == route[1].Selected)
-                {
-                    buf += route[1].Swap;
-                    route.RemoveAt(0);
-                }
-                route.RemoveAt(0);
-
-                answer += buf.Length + NL + buf + NL;
-            }
-            return answer;
-        }
-
-        public override int GetAnswerCost()
-        {
-            return ans.Score;
         }
     }
 }

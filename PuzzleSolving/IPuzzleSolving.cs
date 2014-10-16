@@ -12,9 +12,7 @@ namespace PuzzleSolving
 
         void Stop();
 
-        String GetAnswerString();
-
-        int GetAnswerCost();
+        Answer GetAnswer();
 
         event EventHandler FindBestAnswer;
 
