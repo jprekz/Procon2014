@@ -33,6 +33,7 @@ namespace ProconFileInput
                 //練習場のURLに設定されています
                 var ServerURL = "http://procon2014-practice.oknct-ict.org";
 
+                //やめました
                 //byte[] resource;
 
                 using (var webclient = new WebClient())
@@ -40,13 +41,14 @@ namespace ProconFileInput
                     //本番用URL
                     //resource =  webclient.DownloadData("http://" + ServerURL + ProblemLocation + GetProblemFileName(ProblemID));
                     
+                    //やめました
                     //resource =  webclient.DownloadData(ServerURL + ProblemLocation + ProblemID);
 
                     webclient.DownloadFile(ServerURL + ProblemLocation + ProblemID,  FileSavePath + GetProblemFileName(ProblemID));
                 }
 
 
-                /*
+                /*やめました
                 using (var SaveFile = File.OpenWrite(FileSavePath + GetProblemFileName(ProblemID)))
                 {
                     SaveFile.Write(resource, 0, resource.Length);
