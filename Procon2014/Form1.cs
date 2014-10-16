@@ -1,5 +1,4 @@
-﻿using ProgramingContest3;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -38,6 +37,7 @@ namespace Procon2014
             }
 
             p = new AStar(cells, PpmData.picSetRepeat, PpmData.picSetRate, PpmData.picMoveRate);
+            //p = new ParallelSearch(cells, PpmData.picSetRepeat, PpmData.picSetRate, PpmData.picMoveRate);
         }
 
         private void buttonStart_Click(object sender, EventArgs e)

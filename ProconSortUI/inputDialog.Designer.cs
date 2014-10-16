@@ -35,40 +35,46 @@
             // 
             // submit
             // 
-            this.submit.Location = new System.Drawing.Point(103, 173);
+            this.submit.Location = new System.Drawing.Point(120, 216);
+            this.submit.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.submit.Name = "submit";
-            this.submit.Size = new System.Drawing.Size(75, 23);
-            this.submit.TabIndex = 0;
+            this.submit.Size = new System.Drawing.Size(87, 29);
+            this.submit.TabIndex = 1;
             this.submit.Text = "確定";
             this.submit.UseVisualStyleBackColor = true;
             this.submit.Click += new System.EventHandler(this.submit_Click);
             // 
             // problemnum
             // 
-            this.problemnum.Location = new System.Drawing.Point(90, 131);
+            this.problemnum.Location = new System.Drawing.Point(105, 164);
+            this.problemnum.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.problemnum.Name = "problemnum";
-            this.problemnum.Size = new System.Drawing.Size(100, 19);
-            this.problemnum.TabIndex = 1;
+            this.problemnum.Size = new System.Drawing.Size(116, 19);
+            this.problemnum.TabIndex = 0;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(73, 85);
+            this.label1.Location = new System.Drawing.Point(85, 106);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(134, 12);
+            this.label1.Size = new System.Drawing.Size(136, 15);
             this.label1.TabIndex = 2;
             this.label1.Text = "問題番号を入力して下さい";
             // 
             // InputDialog
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AcceptButton = this.submit;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 262);
+            this.ClientSize = new System.Drawing.Size(331, 328);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.problemnum);
             this.Controls.Add(this.submit);
+            this.KeyPreview = true;
+            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "InputDialog";
             this.Text = "inputDialog";
+            this.Load += new System.EventHandler(this.InputDialog_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

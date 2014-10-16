@@ -8,7 +8,7 @@ namespace PuzzleSolving
 {
     class PriorityQueue<T> where T : IComparable<T>
     {
-        private List<T> ls;
+        public List<T> ls;
         private Compare cmp;
 
         public delegate int Compare(T a, T b);
@@ -17,6 +17,12 @@ namespace PuzzleSolving
         {
             ls = new List<T>(capacity);
             cmp = delegate(T a, T b) { return a.CompareTo(b); };
+        }
+
+        public PriorityQueue(int capacity, Compare c)
+        {
+            ls = new List<T>(capacity);
+            cmp = c;
         }
 
         public T this[int i]

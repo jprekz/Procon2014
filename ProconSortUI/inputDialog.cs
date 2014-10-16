@@ -25,5 +25,10 @@ namespace ProconSortUI
             this.Close();
             return;
         }
+
+        private void InputDialog_Load(object sender, EventArgs e)
+        {
+            this.ActiveControl = this.problemnum;
+        }
     }
 }
