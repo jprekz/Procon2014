@@ -13,51 +13,54 @@ using System.Net;
  *      - タイムアウト(403も), 404, etc...
  */
 
-namespace ProconFileInput
+namespace ProconFileIO
 {
     public class ClientLibrary
     {
         public string GetProblemID (int ProblemID){
             
+            //練習場のURLに設定されています
+            var ServerURL = "http://procon2014-practice.oknct-ict.org";
             //writing after
             var ProblemLocation = "/problem/ppm/";
+
             var FileSavePath = "C:\\Users\\" + Environment.UserName + "\\Desktop\\";
+            
+            var URI = ServerURL + ProblemLocation + ProblemID;
 
             if (FilehavedownloadedFlag(FileSavePath + GetProblemFileName(ProblemID)))
             {
                 return FileSavePath + GetProblemFileName(ProblemID);
             }
-            
+
             else
             {
-                //練習場のURLに設定されています
-                var ServerURL = "http://procon2014-practice.oknct-ict.org";
+                GetFile(URI, FileSavePath, ProblemID);
+            }
 
+            return FileSavePath + GetProblemFileName(ProblemID);
+        }
+
+        public void GetFile(string URI, string FileSavePath, int ProblemID)
+        {
+            using (var webclient = new WebClient())
+            {
+                //本番用URL
+                //resource =  webclient.DownloadData("http://" + ServerURL + ProblemLocation + GetProblemFileName(ProblemID));
                 //やめました
                 //byte[] resource;
-
-                using (var webclient = new WebClient())
-                {
-                    //本番用URL
-                    //resource =  webclient.DownloadData("http://" + ServerURL + ProblemLocation + GetProblemFileName(ProblemID));
-                    
-                    //やめました
-                    //resource =  webclient.DownloadData(ServerURL + ProblemLocation + ProblemID);
-
-                    webclient.DownloadFile(ServerURL + ProblemLocation + ProblemID,  FileSavePath + GetProblemFileName(ProblemID));
-                }
-
-
-                /*やめました
-                using (var SaveFile = File.OpenWrite(FileSavePath + GetProblemFileName(ProblemID)))
-                {
-                    SaveFile.Write(resource, 0, resource.Length);
-                }
-                */
-
-                return FileSavePath + GetProblemFileName(ProblemID);
+                //resource =  webclient.DownloadData(ServerURL + ProblemLocation + ProblemID);
+                //
+                //using (var SaveFile = File.OpenWrite(FileSavePath + GetProblemFileName(ProblemID)))
+                //  {
+                //      SaveFile.Write(resource, 0, resource.Length);
+                //  }
+                
+                webclient.DownloadFile(URI, FileSavePath + GetProblemFileName(ProblemID));
+                
             }
         }
+
         public string GetProblemFileName(int problemID)
         {
             string ProblemFileNameFormat = "prob{0:D2}.ppm";
