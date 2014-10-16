@@ -7,8 +7,8 @@
     <ProjectGuid>{D00E8104-5C7D-4967-8BED-7AD8D400A5F0}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ProconFileInput</RootNamespace>
-    <AssemblyName>ProconFileInput</AssemblyName>
+    <RootNamespace>ProconFileIO</RootNamespace>
+    <AssemblyName>ProconFileIO</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -37,6 +37,8 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
