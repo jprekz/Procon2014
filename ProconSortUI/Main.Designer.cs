@@ -36,9 +36,10 @@
             // 
             // fileSelect
             // 
-            this.fileSelect.Location = new System.Drawing.Point(12, 12);
+            this.fileSelect.Location = new System.Drawing.Point(14, 15);
+            this.fileSelect.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.fileSelect.Name = "fileSelect";
-            this.fileSelect.Size = new System.Drawing.Size(75, 23);
+            this.fileSelect.Size = new System.Drawing.Size(87, 29);
             this.fileSelect.TabIndex = 0;
             this.fileSelect.Text = "ファイル選択";
             this.fileSelect.UseVisualStyleBackColor = true;
@@ -46,18 +47,20 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(12, 41);
+            this.pictureBox1.Location = new System.Drawing.Point(14, 51);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(621, 516);
+            this.pictureBox1.Size = new System.Drawing.Size(724, 645);
             this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
             this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
             // decide
             // 
-            this.decide.Location = new System.Drawing.Point(558, 12);
+            this.decide.Location = new System.Drawing.Point(651, 15);
+            this.decide.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.decide.Name = "decide";
-            this.decide.Size = new System.Drawing.Size(75, 23);
+            this.decide.Size = new System.Drawing.Size(87, 29);
             this.decide.TabIndex = 2;
             this.decide.Text = "確定";
             this.decide.UseVisualStyleBackColor = true;
@@ -65,12 +68,14 @@
             // 
             // Main
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AcceptButton = this.decide;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(646, 570);
+            this.ClientSize = new System.Drawing.Size(754, 712);
             this.Controls.Add(this.decide);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.fileSelect);
+            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "Main";
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
