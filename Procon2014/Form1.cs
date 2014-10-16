@@ -36,7 +36,8 @@ namespace Procon2014
                 }
             }
 
-            p = new ParallelSearch(cells, PpmData.picSetRepeat, PpmData.picSetRate, PpmData.picMoveRate);
+            p = new AStar(cells, PpmData.picSetRepeat, PpmData.picSetRate, PpmData.picMoveRate);
+            //p = new ParallelSearch(cells, PpmData.picSetRepeat, PpmData.picSetRate, PpmData.picMoveRate);
         }
 
         private void buttonStart_Click(object sender, EventArgs e)
