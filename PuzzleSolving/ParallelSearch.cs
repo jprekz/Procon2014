@@ -91,7 +91,7 @@ namespace PuzzleSolving
                         Thread.Sleep(100);
                         continue;
                     }
-                    Node[] n = NextNewLineNodes(closeArray[solvingNumber - 1].ls.Last());
+                    Node[] n = NextNewLineNodes(closeArray[solvingNumber - 1][0]);
                     foreach (var m in n)
                     {
                         if (open.IndexOf(m) != -1) continue;
