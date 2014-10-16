@@ -62,93 +62,41 @@ namespace PuzzleSolving
 
         private void SolveThread(object num)
         {
-            if ((int)num == 0)
-            {
-                FirstLineSolveThread();
-            }
-            else
-            {
-                OtherLineSolveThread((int)num);
-            }
-        }
-
-        private void FirstLineSolveThread()
-        {
-            PriorityQueue<Node> open = openArray[0];
-            PriorityQueue<Node> close = closeArray[0];
-            Node focus;
-            int passNodes, num;
-
-            Node[] firstNodes = NewFirstNodes();
-            foreach (Node n in firstNodes)
-            {
-                //if (n.Heuristic >= Heuristic(startCells)) continue;
-                open.Push(n);
-            }
-
-            while (true)
-            {
-                focus = open[0];
-
-                close.Push(focus);
-                open.RemoveAt(0);
-
-                Node[] nextNodes = NextKeepLineNodes(focus);
-
-                passNodes = 0;
-                foreach (Node m in nextNodes)
-                {
-                    // 枝刈り
-                    //if (m.Heuristic > focus.Heuristic) continue;
-                    //if ((m.Heuristic == focus.Heuristic) && (m.SelectNum != focus.SelectNum)) continue;
-
-                    passNodes++;
-                    if ((num = close.ls.LastIndexOf(m)) != -1)
-                    {
-                        // 要らなくね
-                        if (m.Score < close[num].Score)
-                        {
-                            open.Push(m);
-                            close.RemoveAt(num);
-                        }
-                    }
-                    else if ((num = open.IndexOf(m)) != -1)
-                    {
-                        if (m.Score < open[num].Score)
-                        {
-                            open.RemoveAt(num);
-                            open.Push(m);
-                        }
-                    }
-                    else
-                    {
-                        open.Push(m);
-                        lock (((ICollection)checkQueue).SyncRoot) checkQueue.Enqueue(m);
-                    }
-                }
-                Console.WriteLine("op:" + open.Count + " cl:" + close.Count + " pass:" + passNodes + "/" + nextNodes.Count() + " f:" + focus.Score);
-            }
-        }
-
-        private void OtherLineSolveThread(int solvingNumber)
-        {
+            int solvingNumber = (int)num;
             PriorityQueue<Node> open = openArray[solvingNumber];
             PriorityQueue<Node> close = closeArray[solvingNumber];
             Node focus;
-            int passNodes, num;
+            int passNodes, nodeNum;
+
+            if (solvingNumber == 0)
+            {
+                Node[] firstNodes = NewFirstNodes();
+                foreach (Node n in firstNodes)
+                {
+                    //if (n.Heuristic >= Heuristic(startCells)) continue;
+                    open.Push(n);
+                }
+            }
+            else
+            {
+                Thread.Sleep(100);
+            }
 
             while (true)
             {
-                if (closeArray[solvingNumber - 1].Count == 0)
+                if (solvingNumber != 0)
                 {
-                    Thread.Sleep(100);
-                    continue;
-                }
-                Node[] n = NextNewLineNodes(closeArray[solvingNumber - 1].ls.Last());
-                foreach (var m in n)
-                {
-                    if (open.IndexOf(m) != -1) continue;
-                    open.Push(m);
+                    if (closeArray[solvingNumber - 1].Count == 0)
+                    {
+                        Thread.Sleep(100);
+                        continue;
+                    }
+                    Node[] n = NextNewLineNodes(closeArray[solvingNumber - 1].ls.Last());
+                    foreach (var m in n)
+                    {
+                        if (open.IndexOf(m) != -1) continue;
+                        open.Push(m);
+                    }
                 }
 
                 focus = open[0];
@@ -166,20 +114,20 @@ namespace PuzzleSolving
                     //if ((m.Heuristic == focus.Heuristic) && (m.SelectNum != focus.SelectNum)) continue;
 
                     passNodes++;
-                    if ((num = close.ls.LastIndexOf(m)) != -1)
+                    if ((nodeNum = close.ls.LastIndexOf(m)) != -1)
                     {
                         // 要らなくね
-                        if (m.Score < close[num].Score)
+                        if (m.Score < close[nodeNum].Score)
                         {
                             open.Push(m);
-                            close.RemoveAt(num);
+                            close.RemoveAt(nodeNum);
                         }
                     }
-                    else if ((num = open.IndexOf(m)) != -1)
+                    else if ((nodeNum = open.IndexOf(m)) != -1)
                     {
-                        if (m.Score < open[num].Score)
+                        if (m.Score < open[nodeNum].Score)
                         {
-                            open.RemoveAt(num);
+                            open.RemoveAt(nodeNum);
                             open.Push(m);
                         }
                     }
@@ -192,6 +140,7 @@ namespace PuzzleSolving
                 Console.WriteLine("op:" + open.Count + " cl:" + close.Count + " pass:" + passNodes + "/" + nextNodes.Count() + " f:" + focus.Score);
             }
         }
+
 
         private void CheckThread()
         {
