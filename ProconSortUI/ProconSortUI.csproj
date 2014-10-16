@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BitmapPlus.cs" />
     <Compile Include="EdgeCompare.cs" />
     <Compile Include="GetSortedPiece.cs" />
     <Compile Include="ImageConstruct.cs" />
