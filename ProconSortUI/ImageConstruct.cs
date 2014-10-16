@@ -89,6 +89,7 @@ namespace ProgramingContestImageSort
                     break;
                 }
             }
+
             for(int y = 0;y < PpmData.picDivision[1];y++)
             {
                 for(int x = 0;x < PpmData.picDivision[0];x++)
@@ -107,6 +108,20 @@ namespace ProgramingContestImageSort
                             break;
                         }
                         else if (nextpiece % PpmData.picDivision[0] == edge[3] && nextpiece / PpmData.picDivision[0] == edge[4] && edge[5] == 3)
+                        {
+                            nextpiece = edge[1] * PpmData.picDivision[0] + edge[0];
+                            sortedPiece[(x + y * PpmData.picDivision[0]) * 2 + 4] = (byte)(nextpiece % PpmData.picDivision[0]);
+                            sortedPiece[(x + y * PpmData.picDivision[0]) * 2 + 5] = (byte)(nextpiece / PpmData.picDivision[0]);
+                            break;
+                        }
+                        else if (y > 0 && sortedPiece[(x + (y - 1) * PpmData.picDivision[0]) * 2 + 4] == edge[0] && sortedPiece[(x + (y - 1) * PpmData.picDivision[0]) * 2 + 5] == edge[1] && edge[2] == 2)
+                        {
+                            nextpiece = edge[4] * PpmData.picDivision[0] + edge[3];
+                            sortedPiece[(x + y * PpmData.picDivision[0]) * 2 + 4] = (byte)(nextpiece % PpmData.picDivision[0]);
+                            sortedPiece[(x + y * PpmData.picDivision[0]) * 2 + 5] = (byte)(nextpiece / PpmData.picDivision[0]);
+                            break;
+                        }
+                        else if (y > 0 && sortedPiece[(x + (y - 1) * PpmData.picDivision[0]) * 2 + 4] == edge[3] && sortedPiece[(x + (y - 1) * PpmData.picDivision[0]) * 2 + 5] == edge[4] && edge[5] == 2)
                         {
                             nextpiece = edge[1] * PpmData.picDivision[0] + edge[0];
                             sortedPiece[(x + y * PpmData.picDivision[0]) * 2 + 4] = (byte)(nextpiece % PpmData.picDivision[0]);
