@@ -69,8 +69,14 @@ namespace ProconFileIO
                      *      SaveFile.Write(resource, 0, resource.Length);
                      * }
                      */
-
-                    webclient.DownloadFile(URI, FileSavePath + FileName);
+                    try
+                    {
+                        webclient.DownloadFile(URI, FileSavePath + FileName);
+                    }
+                    catch (WebException err)
+                    {
+                        return err.Status.ToString();
+                    }
                 }
             }
 

@@ -30,5 +30,10 @@ namespace ProconSortUI
         {
             this.ActiveControl = this.problemnum;
         }
+
+        public void labelwrite(string s)
+        {
+            label2.Text = s;
+        }
     }
 }

@@ -34,8 +34,14 @@ namespace ProconSortUI
             piecesform = new Pieces();
             var ir = new ImageResize();
             var id = new InputDialog();
-            id.ShowDialog();
-            var sortedpiece = isort.sort(cl.GetProblemPath(id.result));
+            string result;
+            do
+            {
+                id.ShowDialog();
+                result = cl.GetProblemPath(id.result);
+                id.labelwrite(result);
+            } while (result != "C:\\Users\\" + Environment.UserName + "\\Desktop\\" + string.Format("prob{0:D2}.ppm", id.result));
+            var sortedpiece = isort.sort(result);
             string piecesline = "";
             piecesline += sortedpiece[0].ToString() + " " + sortedpiece[1].ToString();
             for (int i = 2; i < sortedpiece.Length; i+=2 )
@@ -90,7 +96,7 @@ namespace ProconSortUI
             var mouseposition = pictureBox1.PointToClient(Cursor.Position);
             var x = mouseposition.X / (pictureBox1.Image.Width / PpmData.picDivision[0]);
             var y = mouseposition.Y / (pictureBox1.Image.Height / PpmData.picDivision[1]);
-            var pieceposition = ((mouseposition.X / (pictureBox1.Image.Width / PpmData.picDivision[0])) + (mouseposition.Y / (pictureBox1.Image.Height / PpmData.picDivision[1])) * PpmData.picDivision[0]) * 2 + 2;
+            var pieceposition = ((int)(mouseposition.X / (pictureBox1.Image.Width / (double)PpmData.picDivision[0])) + (int)(mouseposition.Y / (pictureBox1.Image.Height / (double)PpmData.picDivision[1])) * PpmData.picDivision[0]) * 2 + 2;
             for(int i = 0;i < 2;i++)
             {
                 drawpiece[pieceposition + i] = selectpiece[i];
@@ -99,16 +105,111 @@ namespace ProconSortUI
             pieceformDraw(drawpiece);
         }
 
-        public void imgdraw(Image image)
+        public void imageDraw(byte[] sortedpiece)
         {
             var ir = new ImageResize();
-            pictureBox1.Image = ir.resize(image, 500);
+            var ic = new ImageCreate();
+            pictureBox1.Image = ir.resize(ic.ppmCut(sortedpiece), 500);
         }
 
         private void decide_Click(object sender, EventArgs e)
         {
             piecesform.Close();
             this.Close();
+        }
+
+        public void pieceLotate(Keys key)
+        {
+            var pieces = new byte[drawpiece.Length];
+            switch(key)
+            {
+                case Keys.J:
+                    pieces[0] = drawpiece[0];
+                    pieces[1] = drawpiece[1];
+                    for(int i = 2;i < drawpiece.Length;i+=2)
+                    {
+                        if(i < drawpiece[0]*2+2)
+                        {
+                            pieces[i] = drawpiece[(drawpiece[0] * (drawpiece[1] - 1))*2 + i];
+                            pieces[i+1] = drawpiece[(drawpiece[0] * (drawpiece[1] - 1)) * 2 + i+1];
+                        }
+                        else
+                        {
+                            pieces[i] = drawpiece[i - drawpiece[0]*2];
+                            pieces[i+1] = drawpiece[i+1 - drawpiece[0]*2];
+                        }
+                    }
+                    drawpiece = pieces;
+                    this.imageDraw(drawpiece);
+                    pieceformDraw(drawpiece);
+                    break;
+                case Keys.K:
+                    pieces[0] = drawpiece[0];
+                    pieces[1] = drawpiece[1];
+                    for(int i = 2;i < drawpiece.Length;i+=2)
+                    {
+                        if (i < (drawpiece[0] * (drawpiece[1] - 1)) * 2 + 2)
+                        {
+                            pieces[i] = drawpiece[i + drawpiece[0] * 2];
+                            pieces[i + 1] = drawpiece[i + 1 + drawpiece[0] * 2];
+                        }
+                        else
+                        {
+                            pieces[i] = drawpiece[i - drawpiece[0]*2*(drawpiece[1]-1)];
+                            pieces[i+1] = drawpiece[i+1 - drawpiece[0]*2*(drawpiece[1]-1)];
+                        }
+                    }
+                    drawpiece = pieces;
+                    this.imageDraw(drawpiece);
+                    pieceformDraw(drawpiece);
+                    break;
+                case Keys.L:
+                    pieces[0] = drawpiece[0];
+                    pieces[1] = drawpiece[1];
+                    for(int i = 2;i < drawpiece.Length;i+=2)
+                    {
+                        if ((i - 2) % (drawpiece[0] * 2) > 0)
+                        {
+                            pieces[i] = drawpiece[i - 2];
+                            pieces[i + 1] = drawpiece[i - 1];
+                        }
+                        else
+                        {
+                            pieces[i] = drawpiece[i + (drawpiece[0] - 1) * 2];
+                            pieces[i + 1] = drawpiece[i + 1 + (drawpiece[0] - 1) * 2];
+                        }
+                    }
+                    drawpiece = pieces;
+                    this.imageDraw(drawpiece);
+                    pieceformDraw(drawpiece);
+                    break;
+                case Keys.H:
+                    pieces[0] = drawpiece[0];
+                    pieces[1] = drawpiece[1];
+                    for (int i = 2; i < drawpiece.Length; i += 2)
+                    {
+                        if ((i - 2) / 2 % drawpiece[0] < drawpiece[0] - 1)
+                        {
+                            pieces[i] = drawpiece[i + 2];
+                            pieces[i + 1] = drawpiece[i + 3];
+                        }
+                        else
+                        {
+                            pieces[i] = drawpiece[i - (drawpiece[0]-1)*2];
+                            pieces[i + 1] = drawpiece[i + 1 - (drawpiece[0] - 1) * 2];
+                        }
+                    }
+                    drawpiece = pieces;
+                    this.imageDraw(drawpiece);
+                    pieceformDraw(drawpiece);
+                    break;
+                    
+            }
+        }
+
+        private void Main_KeyDown(object sender, KeyEventArgs e)
+        {
+            pieceLotate(e.KeyData);
         }
     }
 }
