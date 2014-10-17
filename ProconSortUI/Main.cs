@@ -33,7 +33,7 @@ namespace ProconSortUI
             var ir = new ImageResize();
             var id = new InputDialog();
             id.ShowDialog();
-            var sortedpiece = isort.sort(cl.GetProblemID(id.result));
+            var sortedpiece = isort.sort(cl.GetProblemPath(id.result));
             string piecesline = "";
             piecesline += sortedpiece[0].ToString() + " " + sortedpiece[1].ToString();
             for (int i = 2; i < sortedpiece.Length; i+=2 )
