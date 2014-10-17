@@ -40,7 +40,7 @@ namespace ProconSortUI
                 var sortedpiece = sorting.sort("", selectpiece[1] * PpmData.picDivision[0] + selectpiece[0]);
                 ((Main)this.Owner).imgdraw(create.ppmCut(sortedpiece));
                 ((Main)this.Owner).drawpiece = sortedpiece;
-
+                ((Main)this.Owner).pieceformDraw(sortedpiece);
             }
             else
             {

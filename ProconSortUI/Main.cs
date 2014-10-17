@@ -44,19 +44,41 @@ namespace ProconSortUI
             pictureBox1.Width = pictureBox1.Image.Width;
             pictureBox1.Height = pictureBox1.Image.Height;
             piecesform.Show(this);
-            byte[] origin = new byte[sortedpiece[0]*sortedpiece[1]*2+2];
+            pieceformDraw(sortedpiece);
+            drawpiece = sortedpiece;
+        }
+
+        public void pieceformDraw(byte[] sortedpiece)
+        {
+            var ic = new ImageCreate();
+            var ir = new ImageResize();
+            byte[] origin = new byte[sortedpiece[0] * sortedpiece[1] * 2 + 2];
             origin[0] = sortedpiece[0];
             origin[1] = sortedpiece[1];
-            for(int y = 0; y < origin[1];y++)
+            for (int y = 0; y < origin[1]; y++)
             {
-                for(int x = 0;x < origin[0];x++)
+                for (int x = 0; x < origin[0]; x++)
                 {
-                    origin[(y*origin[0]+x)*2+2] = (byte)x;
-                    origin[(y*origin[0]+x)*2+3] = (byte)y;
+                    origin[(y * origin[0] + x) * 2 + 2] = (byte)x;
+                    origin[(y * origin[0] + x) * 2 + 3] = (byte)y;
                 }
             }
-            piecesform.ImageDraw(ir.resize(ic.ppmCut(origin),400));
-            drawpiece = sortedpiece;
+            bool[] colorpiece = new bool[PpmData.picDivision[0] * PpmData.picDivision[1]];
+            for (int i = 0; i < colorpiece.Length; i++)
+            {
+                colorpiece[i] = true;
+            }
+            for (int i = 2; i < origin.Length; i += 2)
+            {
+                for (int j = 2; j < sortedpiece.Length; j += 2)
+                {
+                    if (origin[i] == sortedpiece[j] && origin[i + 1] == sortedpiece[j + 1])
+                    {
+                        colorpiece[(i - 2) / 2] = false;
+                    }
+                }
+            }
+            piecesform.ImageDraw(ir.resize(ic.ppmCut(origin, colorpiece), 400));
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
@@ -72,6 +94,7 @@ namespace ProconSortUI
                 drawpiece[pieceposition + i] = selectpiece[i];
             }
             pictureBox1.Image = ir.resize(ic.ppmCut(drawpiece), 500);
+            pieceformDraw(drawpiece);
         }
 
         public void imgdraw(Image image)

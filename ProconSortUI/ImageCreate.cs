@@ -10,7 +10,7 @@ namespace ProconSortUI
 {
     class ImageCreate
     {
-        public Bitmap ppmCut(byte[] sortedpiece)
+        public Bitmap ppmCut(byte[] sortedpiece,bool[] colorpiece = null)
         {
             int width = PpmData.picWidth / PpmData.picDivision[0];
             int height = PpmData.picHeight / PpmData.picDivision[1];
@@ -21,7 +21,8 @@ namespace ProconSortUI
             {
                 x = sortedpiece[i];
                 y = sortedpiece[i+1];
-                if (x < 16)
+
+                if ((x < 16&&(colorpiece==null||!colorpiece[(i-2)/2])))
                 {
                     for (int originY = y * height; originY < y * height + height; originY++)
                     {
@@ -30,6 +31,28 @@ namespace ProconSortUI
                             for (int rgb = 0; rgb < 3; rgb++)
                             {
                                 sortedBmp[sortedX + (xStart * width), sortedY + (yStart * height), rgb] = PpmData.picBitmap[originX, originY, rgb];
+                            }
+                            sortedX++;
+                        }
+                        sortedY++;
+                        sortedX = 0;
+                    }
+                    xStart++;
+                    if (xStart > PpmData.picDivision[0] - 1)
+                    {
+                        xStart = 0;
+                        yStart++;
+                    }
+                }
+                else if(colorpiece != null&&colorpiece[(i-2)/2])
+                {
+                    for (int originY = y * height; originY < y * height + height; originY++)
+                    {
+                        for (int originX = x * width; originX < x * width + width; originX++)
+                        {
+                            for (int rgb = 0; rgb < 3; rgb++)
+                            {
+                                sortedBmp[sortedX + (xStart * width), sortedY + (yStart * height), rgb] = (originX - x * width < 20 && originY - y * height < 20) ? 128 : PpmData.picBitmap[originX, originY, rgb];
                             }
                             sortedX++;
                         }
