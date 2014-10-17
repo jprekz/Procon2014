@@ -24,11 +24,11 @@ namespace ProconFileIO
 
         public ClientLibrary()
         {
-            //練習場のURLに設定されています
-            ServerURL = "http://procon2014-practice.oknct-ict.org";
+            
+            ServerURL = "http://172.168.1.2";
 
             //writing after
-            ProblemLocation = "/problem/ppm/";
+            ProblemLocation = "/problem/";
 
             SubmitLocation = "/SubmitAnswer";
 
@@ -45,7 +45,7 @@ namespace ProconFileIO
 
             FileName = string.Format(ProblemFileNameFormat, Ploblemid);
 
-            var URI = ServerURL + ProblemLocation + Ploblemid;
+            var URI = ServerURL + ProblemLocation + FileName;
 
             if (File.Exists(FileSavePath + FileName) == true)
             {
@@ -57,7 +57,7 @@ namespace ProconFileIO
                 using (var webclient = new WebClient())
                 {
                     //本番用URL
-                    //resource =  webclient.DownloadData("http://" + ServerURL + ProblemLocation + GetProblemFileName(ProblemID));
+                    //resource =  webclient.DownloadData(ServerURL + ProblemLocation + GetProblemFileName(ProblemID));
 
                     /*
                      * やめました
