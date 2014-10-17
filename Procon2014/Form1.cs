@@ -54,6 +54,10 @@ namespace Procon2014
             p2.FindBetterAnswer += p2_FindBetterAnswer;
             p1.Start();
             p2.Start();
+            this.submit1.Enabled = true;
+            this.submit2.Enabled = true;
+            this.stop1.Enabled = true;
+            this.stop2.Enabled = true;
         }
 
         private void submit1_Click(object sender, EventArgs e)
@@ -68,6 +72,15 @@ namespace Procon2014
             this.submit1.Enabled = false;
             this.submit2.Enabled = false;
             ProconSortUI.Main.cl.SubmitAnswer(p2.GetAnswer().Str);
+        }
+        private void stop1_Click(object sender, EventArgs e)
+        {
+            p1.Stop();
+        }
+
+        private void stop2_Click(object sender, EventArgs e)
+        {
+            p2.Stop();
         }
 
 
