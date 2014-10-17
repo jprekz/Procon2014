@@ -12,9 +12,9 @@ namespace ProgramingContestImageSort
         private int[][][] pieceData = null;
         private Dictionary<int,int[][]> pieceDictionary;
         private byte[] sortedPiece;
-        public byte[] Construct(int[][] edgeCompareValue)
+        public byte[] Construct(int[][] edgeCompareValue,int leftvalue)
         {
-            return pieceCreate(getEdges(edgeCompareValue));
+            return pieceCreate(getEdges(edgeCompareValue),leftvalue);
         }
 
         private int[][] getEdges(int[][] edges)
@@ -57,7 +57,7 @@ namespace ProgramingContestImageSort
             return edgeList.ToArray();
         }
 
-        private byte[] pieceCreate(int[][] edges)
+        private byte[] pieceCreate(int[][] edges,int leftvalue)
         {
             bool[][] pair = new bool[PpmData.picDivision[0]*PpmData.picDivision[1]][];
             byte[] sortedPiece = new byte[PpmData.picDivision[0] * PpmData.picDivision[1] * 2 + 2];
@@ -65,31 +65,40 @@ namespace ProgramingContestImageSort
             sortedPiece[1] = (byte)PpmData.picDivision[1];
             var firstpiece = -1;
             var nextpiece = -1;
-            for (int i = 0; i < PpmData.picDivision[0] * PpmData.picDivision[1];i++ )
+            if (leftvalue == -1)
             {
-                pair[i] = new bool[4];
-                pair[i][0] = false;
-                pair[i][1] = false;
-                pair[i][2] = false;
-                pair[i][3] = false;
-            }
-            foreach (int[] edge in edges)
-            {
-                pair[edge[0] + edge[1] * PpmData.picDivision[0]][edge[2]] = true;
-                pair[edge[3] + edge[4] * PpmData.picDivision[0]][edge[5]] = true;
-            }
-            for(int i = 0; i < pair.GetLength(0);i++)
-            {
-                if (!pair[i][0] && !pair[i][1])
+                for (int i = 0; i < PpmData.picDivision[0] * PpmData.picDivision[1]; i++)
                 {
-                    firstpiece = i;
-                    nextpiece = i;
-                    sortedPiece[2] = (byte)(nextpiece % PpmData.picDivision[0]);
-                    sortedPiece[3] = (byte)(nextpiece / PpmData.picDivision[0]);
-                    break;
+                    pair[i] = new bool[4];
+                    pair[i][0] = false;
+                    pair[i][1] = false;
+                    pair[i][2] = false;
+                    pair[i][3] = false;
+                }
+                foreach (int[] edge in edges)
+                {
+                    pair[edge[0] + edge[1] * PpmData.picDivision[0]][edge[2]] = true;
+                    pair[edge[3] + edge[4] * PpmData.picDivision[0]][edge[5]] = true;
+                }
+                for (int i = 0; i < pair.GetLength(0); i++)
+                {
+                    if (!pair[i][0] && !pair[i][1])
+                    {
+                        firstpiece = i;
+                        nextpiece = i;
+                        sortedPiece[2] = (byte)(nextpiece % PpmData.picDivision[0]);
+                        sortedPiece[3] = (byte)(nextpiece / PpmData.picDivision[0]);
+                        break;
+                    }
                 }
             }
-
+            else
+            {
+                firstpiece = leftvalue;
+                nextpiece = leftvalue;
+                sortedPiece[2] = (byte)(nextpiece % PpmData.picDivision[0]);
+                sortedPiece[3] = (byte)(nextpiece / PpmData.picDivision[0]);
+            }
             for(int y = 0;y < PpmData.picDivision[1];y++)
             {
                 for(int x = 0;x < PpmData.picDivision[0];x++)

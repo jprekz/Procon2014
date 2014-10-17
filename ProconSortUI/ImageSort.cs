@@ -9,17 +9,20 @@ namespace ProgramingContestImageSort
 {
     public class ImageSort
     {
-        public byte[] sort(string ppmPlace)
+        public byte[] sort(string ppmPlace,int leftvalue=-1)
         {
             var pd = new PpmData();
             var ec = new EdgeCompare();
             var eComparer = new EdgeComparer();
             var ic = new ImageConstruct();
 
-            pd.ppmRead(ppmPlace);
+            if (leftvalue == -1)
+            { 
+                pd.ppmRead(ppmPlace);
+            }
             int[][] edgeCompareValue = ec.compare();
             Array.Sort(edgeCompareValue, edgeCompare());
-            return ic.Construct(edgeCompareValue);
+            return ic.Construct(edgeCompareValue,leftvalue);
         }
         public static IComparer<int[]> edgeCompare()
         {
