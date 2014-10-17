@@ -16,7 +16,7 @@ namespace PuzzleSolving
         public PriorityQueue(int capacity)
         {
             ls = new List<T>(capacity);
-            cmp = delegate(T a, T b) { return a.CompareTo(b); };
+            cmp = (T a, T b) => { return a.CompareTo(b); };
         }
 
         public PriorityQueue(int capacity, Compare c)

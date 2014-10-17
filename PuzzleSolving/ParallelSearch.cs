@@ -10,6 +10,8 @@ namespace PuzzleSolving
 {
     public class ParallelSearch : PuzzleSolving
     {
+        delegate int d(Node a, Node b);
+
         private Thread[] solving;
         private Thread checking;
 
@@ -21,17 +23,22 @@ namespace PuzzleSolving
         public ParallelSearch(byte[,] c, int selectm, int selectc, int swapc)
             : base(c, selectm, selectc, swapc)
         {
+
+            PriorityQueue<Node>.Compare cmp = (Node a, Node b) =>
+            {
+                int diff = a.Heuristic - b.Heuristic;
+                //return diff;
+                return (diff != 0) ? diff : a.Score - b.Score;
+            };
             closeArray = new PriorityQueue<Node>[selectMax];
             for (int i = 0; i < selectMax; i++)
             {
-                closeArray[i] = new PriorityQueue<Node>(65536,
-                    delegate(Node a, Node b) { return a.Heuristic - b.Heuristic; });
+                closeArray[i] = new PriorityQueue<Node>(65536, cmp);
             }
             openArray = new PriorityQueue<Node>[selectMax];
             for (int i = 0; i < selectMax; i++)
             {
-                openArray[i] = new PriorityQueue<Node>(65536,
-                    delegate(Node a, Node b) { return a.Heuristic - b.Heuristic; });
+                openArray[i] = new PriorityQueue<Node>(65536, cmp);
             }
 
             solving = new Thread[selectMax];
