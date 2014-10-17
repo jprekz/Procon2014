@@ -21,24 +21,49 @@ namespace ProconSortUI
             {
                 x = sortedpiece[i];
                 y = sortedpiece[i+1];
-                for (int originY = y * height; originY < y * height + height; originY++)
+                if (x < 16)
                 {
-                    for (int originX = x * width; originX < x * width + width; originX++)
+                    for (int originY = y * height; originY < y * height + height; originY++)
                     {
-                        for (int rgb = 0; rgb < 3; rgb++)
+                        for (int originX = x * width; originX < x * width + width; originX++)
                         {
-                            sortedBmp[sortedX + (xStart * width), sortedY + (yStart * height), rgb] = PpmData.picBitmap[originX, originY, rgb];
+                            for (int rgb = 0; rgb < 3; rgb++)
+                            {
+                                sortedBmp[sortedX + (xStart * width), sortedY + (yStart * height), rgb] = PpmData.picBitmap[originX, originY, rgb];
+                            }
+                            sortedX++;
                         }
-                        sortedX++;
+                        sortedY++;
+                        sortedX = 0;
                     }
-                    sortedY++;
-                    sortedX = 0;
+                    xStart++;
+                    if (xStart > PpmData.picDivision[0] - 1)
+                    {
+                        xStart = 0;
+                        yStart++;
+                    }
                 }
-                xStart++;
-                if (xStart > PpmData.picDivision[0] - 1)
+                else
                 {
-                    xStart = 0;
-                    yStart++;
+                    for (int originY = 0; originY < height; originY++)
+                    {
+                        for (int originX = 0; originX < width; originX++)
+                        {
+                            for (int rgb = 0; rgb < 3; rgb++)
+                            {
+                                sortedBmp[sortedX + (xStart * width), sortedY + (yStart * height), rgb] = 0;
+                            }
+                            sortedX++;
+                        }
+                        sortedY++;
+                        sortedX = 0;
+                    }
+                    xStart++;
+                    if (xStart > PpmData.picDivision[0] - 1)
+                    {
+                        xStart = 0;
+                        yStart++;
+                    }
                 }
                 sortedX = 0;
                 sortedY = 0;
