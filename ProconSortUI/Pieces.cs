@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ProgramingContestImageSort;
 
 namespace ProconSortUI
 {
@@ -26,13 +27,25 @@ namespace ProconSortUI
             this.Height = image.Height + 64;
         }
 
-        private void pictureBox1_Click(object sender, EventArgs e)
+        private void pictureBox1_MouseClick(object sender, MouseEventArgs e)
         {
-            byte[] selectpiece = new byte[2];
             var mouseposition = pictureBox1.PointToClient(Cursor.Position);
+            byte[] selectpiece = new byte[2];
             selectpiece[0] = (byte)(mouseposition.X / (pictureBox1.Image.Width / PpmData.picDivision[0]));
             selectpiece[1] = (byte)(mouseposition.Y / (pictureBox1.Image.Height / PpmData.picDivision[1]));
-            ((Main)this.Owner).selectpiece = selectpiece;
+            if (e.Button == MouseButtons.Right)
+            {
+                var sorting = new ImageSort();
+                var create = new ImageCreate();
+                var sortedpiece = sorting.sort("", selectpiece[1] * PpmData.picDivision[0] + selectpiece[0]);
+                ((Main)this.Owner).imgdraw(create.ppmCut(sortedpiece));
+                ((Main)this.Owner).drawpiece = sortedpiece;
+
+            }
+            else
+            {
+                ((Main)this.Owner).selectpiece = selectpiece;
+            }
         }
 
     }
