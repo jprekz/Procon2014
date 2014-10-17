@@ -97,7 +97,12 @@ namespace ProconFileIO
                     AnswerCollention.Add("playerid", playerid);
                     AnswerCollention.Add("ploblemid", PloblemID.ToString());
                     AnswerCollention.Add("answer", ans);
-                    Respons = Encoding.UTF8.GetString(wc.UploadValues(ServerURL + SubmitLocation, AnswerCollention));
+
+                    //本番
+                    //Respons = Encoding.UTF8.GetString(wc.UploadValues(ServerURL + SubmitLocation, AnswerCollention));
+                    //テスト
+                    Respons = "TEST RESPONS"; Thread.Sleep(1000);
+
                 }
                 OnReturnRespons(new EventArgs());
             }

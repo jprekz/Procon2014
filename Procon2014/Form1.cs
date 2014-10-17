@@ -16,10 +16,8 @@ namespace Procon2014
 {
     public partial class Form1 : Form
     {
-
         private IPuzzleSolving p1;
         private IPuzzleSolving p2;
-        private ClientLibrary cl;
         private System.Diagnostics.Stopwatch sw;
         public Form1()
         {
@@ -29,8 +27,6 @@ namespace Procon2014
         private void initializeManagement()
         {
             var gsp = new GetSortedPiece();
-            cl = gsp.cl;
-            cl.ReturnRespons += ReturnSubmitAnswer;
             byte[,] sorted = gsp.getsortedpiece();
             byte[,] cells = (byte[,])sorted.Clone();
             for (int y = 0; y != cells.GetLength(1); y++)
@@ -44,6 +40,7 @@ namespace Procon2014
 
             p1 = new AStar(cells, PpmData.picSetRepeat, PpmData.picSetRate, PpmData.picMoveRate);
             p2 = new ParallelSearch(cells, PpmData.picSetRepeat, PpmData.picSetRate, PpmData.picMoveRate);
+            ProconSortUI.Main.cl.ReturnRespons += ReturnSubmitAnswer;
         }
 
         private void buttonStart_Click(object sender, EventArgs e)
@@ -61,7 +58,16 @@ namespace Procon2014
 
         private void submit1_Click(object sender, EventArgs e)
         {
-            cl.SubmitAnswer(p1.GetAnswer().Str);
+            this.submit1.Enabled = false;
+            this.submit2.Enabled = false;
+            ProconSortUI.Main.cl.SubmitAnswer(p1.GetAnswer().Str);
+        }
+
+        private void submit2_Click(object sender, EventArgs e)
+        {
+            this.submit1.Enabled = false;
+            this.submit2.Enabled = false;
+            ProconSortUI.Main.cl.SubmitAnswer(p2.GetAnswer().Str);
         }
 
 
@@ -111,7 +117,9 @@ namespace Procon2014
         {
             this.BeginInvoke((MethodInvoker)delegate()
             {
-                this.serverReturn.Text = cl.Respons;
+                this.serverReturn.Text = ProconSortUI.Main.cl.Respons;
+                this.submit1.Enabled = true;
+                this.submit2.Enabled = true;
             });
         }
 

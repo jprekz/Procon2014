@@ -111,6 +111,7 @@
             this.submit2.TabIndex = 4;
             this.submit2.Text = "submit2";
             this.submit2.UseVisualStyleBackColor = true;
+            this.submit2.Click += new System.EventHandler(this.submit2_Click);
             // 
             // serverReturn
             // 

@@ -10,11 +10,9 @@ namespace ProconSortUI
 {
     public class GetSortedPiece
     {
-        public ClientLibrary cl;
         public byte[,] getsortedpiece()
         {
             var mainform = new Main();
-            cl = mainform.cl;
             mainform.ShowDialog();
             return picsortToByte(mainform.drawpiece);  
         }

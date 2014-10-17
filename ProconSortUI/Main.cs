@@ -14,7 +14,8 @@ namespace ProconSortUI
 {
     public partial class Main : Form
     {
-        public ClientLibrary cl;
+        public static ClientLibrary cl;
+
         public Main()
         {
             InitializeComponent();
