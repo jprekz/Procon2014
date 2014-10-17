@@ -36,9 +36,8 @@ namespace ProconSortUI
             if (e.Button == MouseButtons.Right)
             {
                 var sorting = new ImageSort();
-                var create = new ImageCreate();
                 var sortedpiece = sorting.sort("", selectpiece[1] * PpmData.picDivision[0] + selectpiece[0]);
-                ((Main)this.Owner).imgdraw(create.ppmCut(sortedpiece));
+                ((Main)this.Owner).imageDraw(sortedpiece);
                 ((Main)this.Owner).drawpiece = sortedpiece;
                 ((Main)this.Owner).pieceformDraw(sortedpiece);
             }
