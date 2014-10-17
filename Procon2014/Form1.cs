@@ -136,5 +136,12 @@ namespace Procon2014
             });
         }
 
+        private void Form1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == Keys.F1) this.submit1_Click(this, new EventArgs());
+            else if (e.KeyData == Keys.F2) this.stop1_Click(this, new EventArgs());
+            else if (e.KeyData == Keys.F3) this.submit2_Click(this, new EventArgs());
+            else if (e.KeyData == Keys.F4) this.stop2_Click(this, new EventArgs());
+        }
     }
 }

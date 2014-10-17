@@ -53,7 +53,7 @@
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
             this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox1.Size = new System.Drawing.Size(386, 492);
+            this.textBox1.Size = new System.Drawing.Size(386, 490);
             this.textBox1.TabIndex = 0;
             // 
             // tableLayoutPanel1
@@ -96,28 +96,32 @@
             this.textBox2.Multiline = true;
             this.textBox2.Name = "textBox2";
             this.textBox2.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox2.Size = new System.Drawing.Size(386, 492);
+            this.textBox2.Size = new System.Drawing.Size(386, 490);
             this.textBox2.TabIndex = 2;
             // 
             // submit1
             // 
+            this.submit1.AutoSize = true;
+            this.submit1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.submit1.Enabled = false;
             this.submit1.Location = new System.Drawing.Point(3, 3);
             this.submit1.Name = "submit1";
-            this.submit1.Size = new System.Drawing.Size(75, 23);
+            this.submit1.Size = new System.Drawing.Size(88, 25);
             this.submit1.TabIndex = 3;
-            this.submit1.Text = "submit1";
+            this.submit1.Text = "submit1(F1)";
             this.submit1.UseVisualStyleBackColor = true;
             this.submit1.Click += new System.EventHandler(this.submit1_Click);
             // 
             // submit2
             // 
+            this.submit2.AutoSize = true;
+            this.submit2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.submit2.Enabled = false;
             this.submit2.Location = new System.Drawing.Point(3, 3);
             this.submit2.Name = "submit2";
-            this.submit2.Size = new System.Drawing.Size(75, 23);
+            this.submit2.Size = new System.Drawing.Size(88, 25);
             this.submit2.TabIndex = 4;
-            this.submit2.Text = "submit2";
+            this.submit2.Text = "submit2(F3)";
             this.submit2.UseVisualStyleBackColor = true;
             this.submit2.Click += new System.EventHandler(this.submit2_Click);
             // 
@@ -137,9 +141,9 @@
             this.flowLayoutPanel1.Controls.Add(this.submit1);
             this.flowLayoutPanel1.Controls.Add(this.stop1);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 530);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 528);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(386, 29);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(386, 31);
             this.flowLayoutPanel1.TabIndex = 6;
             // 
             // flowLayoutPanel2
@@ -149,30 +153,34 @@
             this.flowLayoutPanel2.Controls.Add(this.submit2);
             this.flowLayoutPanel2.Controls.Add(this.stop2);
             this.flowLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanel2.Location = new System.Drawing.Point(395, 530);
+            this.flowLayoutPanel2.Location = new System.Drawing.Point(395, 528);
             this.flowLayoutPanel2.Name = "flowLayoutPanel2";
-            this.flowLayoutPanel2.Size = new System.Drawing.Size(386, 29);
+            this.flowLayoutPanel2.Size = new System.Drawing.Size(386, 31);
             this.flowLayoutPanel2.TabIndex = 7;
             // 
             // stop1
             // 
+            this.stop1.AutoSize = true;
+            this.stop1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.stop1.Enabled = false;
-            this.stop1.Location = new System.Drawing.Point(84, 3);
+            this.stop1.Location = new System.Drawing.Point(97, 3);
             this.stop1.Name = "stop1";
-            this.stop1.Size = new System.Drawing.Size(75, 23);
+            this.stop1.Size = new System.Drawing.Size(73, 25);
             this.stop1.TabIndex = 4;
-            this.stop1.Text = "stop1";
+            this.stop1.Text = "stop1(F2)";
             this.stop1.UseVisualStyleBackColor = true;
             this.stop1.Click += new System.EventHandler(this.stop1_Click);
             // 
             // stop2
             // 
+            this.stop2.AutoSize = true;
+            this.stop2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.stop2.Enabled = false;
-            this.stop2.Location = new System.Drawing.Point(84, 3);
+            this.stop2.Location = new System.Drawing.Point(97, 3);
             this.stop2.Name = "stop2";
-            this.stop2.Size = new System.Drawing.Size(75, 23);
+            this.stop2.Size = new System.Drawing.Size(73, 25);
             this.stop2.TabIndex = 5;
-            this.stop2.Text = "stop2";
+            this.stop2.Text = "stop2(F4)";
             this.stop2.UseVisualStyleBackColor = true;
             this.stop2.Click += new System.EventHandler(this.stop2_Click);
             // 
@@ -182,13 +190,17 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 562);
             this.Controls.Add(this.tableLayoutPanel1);
+            this.KeyPreview = true;
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "Form1";
             this.Text = "Procon2014";
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.flowLayoutPanel1.ResumeLayout(false);
+            this.flowLayoutPanel1.PerformLayout();
             this.flowLayoutPanel2.ResumeLayout(false);
+            this.flowLayoutPanel2.PerformLayout();
             this.ResumeLayout(false);
 
         }

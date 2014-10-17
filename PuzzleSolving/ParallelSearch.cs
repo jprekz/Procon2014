@@ -27,8 +27,8 @@ namespace PuzzleSolving
             PriorityQueue<Node>.Compare cmp = (Node a, Node b) =>
             {
                 int diff = a.Heuristic - b.Heuristic;
-                //return diff;
-                return (diff != 0) ? diff : a.Score - b.Score;
+                return diff;
+                //return (diff != 0) ? diff : a.Score - b.Score;
             };
             closeArray = new PriorityQueue<Node>[selectMax];
             for (int i = 0; i < selectMax; i++)
