@@ -11,10 +11,11 @@ namespace PuzzleSolving
         public string Str;
         public int Heauristic;
         public int Cost;
+        public int Diffs;
         public override string ToString()
         {
             string NL = Environment.NewLine;
-            return "heauristic=" + Heauristic + NL + "cost=" + Cost + NL + NL + Str;
+            return "heauristic=" + Heauristic + NL + "diffs=" + Diffs + NL + "cost=" + Cost + NL + NL + Str;
         }
     }
 }

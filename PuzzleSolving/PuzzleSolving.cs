@@ -197,6 +197,19 @@ namespace PuzzleSolving
             return answer;
         }
 
+        protected int GetAnswerDiffs(Node n)
+        {
+            int diffs = 0;
+            for (int y = 0; y < cellsY; y++)
+            {
+                for (int x = 0; x < cellsX; x++)
+                {
+                    if (n.Cells[x, y] != (byte)(x * 16 + y)) diffs++;
+                }
+            }
+            return diffs;
+        }
+
 
         public event EventHandler FindBestAnswer;
         protected virtual void OnFindBestAnswer(EventArgs e)

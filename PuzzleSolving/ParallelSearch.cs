@@ -73,7 +73,8 @@ namespace PuzzleSolving
             {
                 Str = GetAnswerString(ans),
                 Heauristic = ans.Heuristic,
-                Cost = ans.Score - ans.Heuristic
+                Cost = ans.Score - ans.Heuristic,
+                Diffs = GetAnswerDiffs(ans)
             };
         }
 
