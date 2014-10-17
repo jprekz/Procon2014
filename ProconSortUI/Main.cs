@@ -14,6 +14,7 @@ namespace ProconSortUI
 {
     public partial class Main : Form
     {
+        public ClientLibrary cl;
         public Main()
         {
             InitializeComponent();
@@ -25,7 +26,7 @@ namespace ProconSortUI
 
         private void fileSelect_Click(object sender, EventArgs e)
         {
-            var cl = new ClientLibrary();
+            cl = new ClientLibrary();
             var isort = new ImageSort();
             var ic = new ImageCreate();
             var pieces = new Pieces();

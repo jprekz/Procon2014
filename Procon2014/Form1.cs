@@ -10,13 +10,16 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using PuzzleSolving;
 using ProconSortUI;
+using ProconFileIO;
 
 namespace Procon2014
 {
     public partial class Form1 : Form
     {
+
         private IPuzzleSolving p1;
         private IPuzzleSolving p2;
+        private ClientLibrary cl;
         private System.Diagnostics.Stopwatch sw;
         public Form1()
         {
@@ -26,6 +29,8 @@ namespace Procon2014
         private void initializeManagement()
         {
             var gsp = new GetSortedPiece();
+            cl = gsp.cl;
+            cl.ReturnRespons += ReturnSubmitAnswer;
             byte[,] sorted = gsp.getsortedpiece();
             byte[,] cells = (byte[,])sorted.Clone();
             for (int y = 0; y != cells.GetLength(1); y++)
@@ -53,6 +58,12 @@ namespace Procon2014
             p1.Start();
             p2.Start();
         }
+
+        private void submit1_Click(object sender, EventArgs e)
+        {
+            cl.SubmitAnswer(p1.GetAnswer().Str);
+        }
+
 
         void p1_FindBestAnswer(object sender, EventArgs e)
         {
@@ -95,5 +106,14 @@ namespace Procon2014
                 this.textBox2.Text += p2.GetAnswer();
             });
         }
+        
+        void ReturnSubmitAnswer(object sender, EventArgs e)
+        {
+            this.BeginInvoke((MethodInvoker)delegate()
+            {
+                this.serverReturn.Text = cl.Respons;
+            });
+        }
+
     }
 }

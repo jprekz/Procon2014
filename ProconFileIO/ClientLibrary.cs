@@ -20,6 +20,8 @@ namespace ProconFileIO
         string FileName;
         int PloblemID;
 
+        public string Respons;
+
         public ClientLibrary()
         {
             //練習場のURLに設定されています
@@ -88,7 +90,6 @@ namespace ProconFileIO
 
             using (var webclient = new WebClient())
             {
-                byte[] respons;
                 string playerid = "3965475495";
                 using (var wc = new WebClient())
                 {
@@ -96,14 +97,17 @@ namespace ProconFileIO
                     AnswerCollention.Add("playerid", playerid);
                     AnswerCollention.Add("ploblemid", PloblemID.ToString());
                     AnswerCollention.Add("answer", ans);
-                    respons = wc.UploadValues(ServerURL + SubmitLocation, AnswerCollention);
-
-
-
+                    Respons = Encoding.UTF8.GetString(wc.UploadValues(ServerURL + SubmitLocation, AnswerCollention));
                 }
-
-
+                OnReturnRespons(new EventArgs());
             }
         }
+
+        public event EventHandler ReturnRespons;
+        private void OnReturnRespons(EventArgs e)
+        {
+            if (null != ReturnRespons) ReturnRespons(this, e);
+        }
+
     }
 }

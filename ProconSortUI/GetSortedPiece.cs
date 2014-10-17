@@ -4,14 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using ProconFileIO;
 
 namespace ProconSortUI
 {
     public class GetSortedPiece
     {
+        public ClientLibrary cl;
         public byte[,] getsortedpiece()
         {
             var mainform = new Main();
+            cl = mainform.cl;
             mainform.ShowDialog();
             return picsortToByte(mainform.drawpiece);  
         }

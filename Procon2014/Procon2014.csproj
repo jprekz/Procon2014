@@ -102,6 +102,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ProconFileIO\ProconFileIO.csproj">
+      <Project>{d00e8104-5c7d-4967-8bed-7ad8d400a5f0}</Project>
+      <Name>ProconFileIO</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ProconSortUI\ProconSortUI.csproj">
       <Project>{37718f2a-135b-48a5-9f22-9493b8fdb860}</Project>
       <Name>ProconSortUI</Name>
