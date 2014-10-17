@@ -34,6 +34,7 @@
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.submit1 = new System.Windows.Forms.Button();
             this.submit2 = new System.Windows.Forms.Button();
+            this.serverReturn = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -59,6 +60,7 @@
             this.tableLayoutPanel1.Controls.Add(this.textBox2, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.submit1, 0, 2);
             this.tableLayoutPanel1.Controls.Add(this.submit2, 1, 2);
+            this.tableLayoutPanel1.Controls.Add(this.serverReturn, 1, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -99,6 +101,7 @@
             this.submit1.TabIndex = 3;
             this.submit1.Text = "submit1";
             this.submit1.UseVisualStyleBackColor = true;
+            this.submit1.Click += new System.EventHandler(this.submit1_Click);
             // 
             // submit2
             // 
@@ -108,6 +111,16 @@
             this.submit2.TabIndex = 4;
             this.submit2.Text = "submit2";
             this.submit2.UseVisualStyleBackColor = true;
+            this.submit2.Click += new System.EventHandler(this.submit2_Click);
+            // 
+            // serverReturn
+            // 
+            this.serverReturn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.serverReturn.Location = new System.Drawing.Point(395, 3);
+            this.serverReturn.Multiline = true;
+            this.serverReturn.Name = "serverReturn";
+            this.serverReturn.Size = new System.Drawing.Size(386, 23);
+            this.serverReturn.TabIndex = 5;
             // 
             // Form1
             // 
@@ -132,6 +145,7 @@
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.Button submit1;
         private System.Windows.Forms.Button submit2;
+        private System.Windows.Forms.TextBox serverReturn;
     }
 }
 

@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using PuzzleSolving;
 using ProconSortUI;
+using ProconFileIO;
 
 namespace Procon2014
 {
@@ -39,6 +40,7 @@ namespace Procon2014
 
             p1 = new AStar(cells, PpmData.picSetRepeat, PpmData.picSetRate, PpmData.picMoveRate);
             p2 = new ParallelSearch(cells, PpmData.picSetRepeat, PpmData.picSetRate, PpmData.picMoveRate);
+            ProconSortUI.Main.cl.ReturnRespons += ReturnSubmitAnswer;
         }
 
         private void buttonStart_Click(object sender, EventArgs e)
@@ -53,6 +55,21 @@ namespace Procon2014
             p1.Start();
             p2.Start();
         }
+
+        private void submit1_Click(object sender, EventArgs e)
+        {
+            this.submit1.Enabled = false;
+            this.submit2.Enabled = false;
+            ProconSortUI.Main.cl.SubmitAnswer(p1.GetAnswer().Str);
+        }
+
+        private void submit2_Click(object sender, EventArgs e)
+        {
+            this.submit1.Enabled = false;
+            this.submit2.Enabled = false;
+            ProconSortUI.Main.cl.SubmitAnswer(p2.GetAnswer().Str);
+        }
+
 
         void p1_FindBestAnswer(object sender, EventArgs e)
         {
@@ -95,5 +112,16 @@ namespace Procon2014
                 this.textBox2.Text += p2.GetAnswer();
             });
         }
+        
+        void ReturnSubmitAnswer(object sender, EventArgs e)
+        {
+            this.BeginInvoke((MethodInvoker)delegate()
+            {
+                this.serverReturn.Text = ProconSortUI.Main.cl.Respons;
+                this.submit1.Enabled = true;
+                this.submit2.Enabled = true;
+            });
+        }
+
     }
 }
