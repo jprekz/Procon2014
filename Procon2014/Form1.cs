@@ -76,11 +76,13 @@ namespace Procon2014
         private void stop1_Click(object sender, EventArgs e)
         {
             p1.Stop();
+            stop1.Enabled = false;
         }
 
         private void stop2_Click(object sender, EventArgs e)
         {
             p2.Stop();
+            stop2.Enabled = false;
         }
 
 
