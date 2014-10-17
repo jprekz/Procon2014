@@ -96,6 +96,7 @@ namespace ProgramingContestImageSort
                 {
                     foreach (int[] edge in edges)
                     {
+                        var isfound = false;
                         if ((x + y * PpmData.picDivision[0]) * 2 + 5 >= sortedPiece.Length)
                         {
                             break;
@@ -104,27 +105,35 @@ namespace ProgramingContestImageSort
                         if (nextpiece % PpmData.picDivision[0] == edge[0] && nextpiece / PpmData.picDivision[0] == edge[1] && edge[2] == 3)
                         {
                             nextpiece = edge[4] * PpmData.picDivision[0] + edge[3];
-                            sortedPiece[(x + y * PpmData.picDivision[0]) * 2 + 4] = (byte)(nextpiece % PpmData.picDivision[0]);
-                            sortedPiece[(x + y * PpmData.picDivision[0]) * 2 + 5] = (byte)(nextpiece / PpmData.picDivision[0]);
-                            break;
+                            isfound = true;
                         }
                         else if (nextpiece % PpmData.picDivision[0] == edge[3] && nextpiece / PpmData.picDivision[0] == edge[4] && edge[5] == 3)
                         {
                             nextpiece = edge[1] * PpmData.picDivision[0] + edge[0];
-                            sortedPiece[(x + y * PpmData.picDivision[0]) * 2 + 4] = (byte)(nextpiece % PpmData.picDivision[0]);
-                            sortedPiece[(x + y * PpmData.picDivision[0]) * 2 + 5] = (byte)(nextpiece / PpmData.picDivision[0]);
-                            break;
+                            isfound = true;
                         }
                         else if (y > 0 && sortedPiece[(x + (y - 1) * PpmData.picDivision[0]) * 2 + 4] == edge[0] && sortedPiece[(x + (y - 1) * PpmData.picDivision[0]) * 2 + 5] == edge[1] && edge[2] == 2)
                         {
                             nextpiece = edge[4] * PpmData.picDivision[0] + edge[3];
-                            sortedPiece[(x + y * PpmData.picDivision[0]) * 2 + 4] = (byte)(nextpiece % PpmData.picDivision[0]);
-                            sortedPiece[(x + y * PpmData.picDivision[0]) * 2 + 5] = (byte)(nextpiece / PpmData.picDivision[0]);
-                            break;
+                            isfound = true;
                         }
                         else if (y > 0 && sortedPiece[(x + (y - 1) * PpmData.picDivision[0]) * 2 + 4] == edge[3] && sortedPiece[(x + (y - 1) * PpmData.picDivision[0]) * 2 + 5] == edge[4] && edge[5] == 2)
                         {
                             nextpiece = edge[1] * PpmData.picDivision[0] + edge[0];
+                            isfound = true;
+                        }
+                        if(isfound)
+                        {
+                            for(int i = 2;i < (x + y * PpmData.picDivision[0]) * 2 + 3;i+=2)
+                            {
+                                if(sortedPiece[i] == nextpiece % PpmData.picDivision[0]&&sortedPiece[i+1] == nextpiece / PpmData.picDivision[0])
+                                {
+                                    isfound = false;
+                                }
+                            }
+                        }
+                        if (isfound)
+                        {
                             sortedPiece[(x + y * PpmData.picDivision[0]) * 2 + 4] = (byte)(nextpiece % PpmData.picDivision[0]);
                             sortedPiece[(x + y * PpmData.picDivision[0]) * 2 + 5] = (byte)(nextpiece / PpmData.picDivision[0]);
                             break;
