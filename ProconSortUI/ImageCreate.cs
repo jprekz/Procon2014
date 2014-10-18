@@ -50,10 +50,10 @@ namespace ProconSortUI
                     {
                         for (int originX = x * width; originX < x * width + width; originX++)
                         {
-                            for (int rgb = 0; rgb < 3; rgb++)
-                            {
-                                sortedBmp[sortedX + (xStart * width), sortedY + (yStart * height), rgb] = (originX - x * width < 20 && originY - y * height < 20) ? 128 : PpmData.picBitmap[originX, originY, rgb];
-                            }
+                            
+                            sortedBmp[sortedX + (xStart * width), sortedY + (yStart * height), 0] = (originX - x * width < 20 && originY - y * height < 20) ? 255 : PpmData.picBitmap[originX, originY, 0];
+                            sortedBmp[sortedX + (xStart * width), sortedY + (yStart * height), 1] = (originX - x * width < 20 && originY - y * height < 20) ? 0 : PpmData.picBitmap[originX, originY, 1];
+                            sortedBmp[sortedX + (xStart * width), sortedY + (yStart * height), 2] = (originX - x * width < 20 && originY - y * height < 20) ? 0 : PpmData.picBitmap[originX, originY, 2];
                             sortedX++;
                         }
                         sortedY++;
