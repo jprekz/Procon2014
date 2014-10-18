@@ -52,6 +52,7 @@ namespace ProconSortUI
             pictureBox1.Width = pictureBox1.Image.Width;
             pictureBox1.Height = pictureBox1.Image.Height;
             piecesform.Show(this);
+            piecesform.DesktopLocation = new Point(800,0);
             pieceformDraw(sortedpiece);
             drawpiece = sortedpiece;
         }
