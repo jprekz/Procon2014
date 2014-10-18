@@ -25,7 +25,7 @@ namespace ProconFileIO
         public ClientLibrary()
         {
             
-            ServerURL = "http://172.168.1.2";
+            ServerURL = "http://172.16.1.2";
 
             //writing after
             ProblemLocation = "/problem/";
@@ -102,13 +102,13 @@ namespace ProconFileIO
                 {
                     var AnswerCollention = new NameValueCollection();
                     AnswerCollention.Add("playerid", playerid);
-                    AnswerCollention.Add("ploblemid", PloblemID.ToString());
+                    AnswerCollention.Add("problemid", PloblemID.ToString());
                     AnswerCollention.Add("answer", ans);
 
                     //本番
-                    //Respons = Encoding.UTF8.GetString(wc.UploadValues(ServerURL + SubmitLocation, AnswerCollention));
+                    Respons = Encoding.UTF8.GetString(wc.UploadValues(ServerURL + SubmitLocation, AnswerCollention));
                     //テスト
-                    Respons = "TEST RESPONS"; Thread.Sleep(1000);
+                    //Respons = "TEST RESPONS"; Thread.Sleep(1000);
 
                 }
                 OnReturnRespons(new EventArgs());
