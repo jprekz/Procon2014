@@ -53,36 +53,28 @@ namespace ProconFileIO
 
             var URI = ServerURL + ProblemLocation + FileName;
 
-            if (File.Exists(FileSavePath + FileName) == true)
+            using (var webclient = new WebClient())
             {
-                return FileSavePath + FileName;
-            }
+                //本番用URL
+                //resource =  webclient.DownloadData(ServerURL + ProblemLocation + GetProblemFileName(ProblemID));
 
-            else
-            {
-                using (var webclient = new WebClient())
+                /*
+                 * やめました
+                 * byte[] resource;
+                 * resource =  webclient.DownloadData(ServerURL + ProblemLocation + ProblemID);
+                 *
+                 * using (var SaveFile = File.OpenWrite(FileSavePath + GetProblemFileName(ProblemID)))
+                 * {
+                 *      SaveFile.Write(resource, 0, resource.Length);
+                 * }
+                 */
+                try
                 {
-                    //本番用URL
-                    //resource =  webclient.DownloadData(ServerURL + ProblemLocation + GetProblemFileName(ProblemID));
-
-                    /*
-                     * やめました
-                     * byte[] resource;
-                     * resource =  webclient.DownloadData(ServerURL + ProblemLocation + ProblemID);
-                     *
-                     * using (var SaveFile = File.OpenWrite(FileSavePath + GetProblemFileName(ProblemID)))
-                     * {
-                     *      SaveFile.Write(resource, 0, resource.Length);
-                     * }
-                     */
-                    try
-                    {
-                        webclient.DownloadFile(URI, FileSavePath + FileName);
-                    }
-                    catch (WebException err)
-                    {
-                        return err.Status.ToString();
-                    }
+                    webclient.DownloadFile(URI, FileSavePath + FileName);
+                }
+                catch (WebException err)
+                {
+                    return err.Status.ToString();
                 }
             }
 
