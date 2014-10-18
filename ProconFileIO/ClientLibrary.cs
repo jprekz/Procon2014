@@ -29,8 +29,8 @@ namespace ProconFileIO
 
             ServerURL = "http://172.16.1.2";
             playerid = "3965475495";
-            //ServerURL = "http://localhost";
-            //playerid = "1";
+            ServerURL = "http://localhost";
+            playerid = "1";
 
             //writing after
             ProblemLocation = "/problem/";

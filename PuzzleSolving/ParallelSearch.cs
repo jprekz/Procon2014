@@ -84,7 +84,10 @@ namespace PuzzleSolving
             PriorityQueue<Node> open = openArray[solvingNumber];
             PriorityQueue<Node> close = closeArray[solvingNumber];
             Node focus;
-            int passNodes, nodeNum;
+            Node[] nextNodes;
+            object add = new object();
+            Node[] addNodes;
+            int nodeNum;
 
             if (solvingNumber == 0)
             {
@@ -104,11 +107,15 @@ namespace PuzzleSolving
                         Thread.Sleep(100);
                         continue;
                     }
-                    Node[] n = NextNewLineNodes(closeArray[solvingNumber - 1][0]);
-                    foreach (var m in n)
+                    if (closeArray[solvingNumber - 1][0] != add)
                     {
-                        if (open.IndexOf(m) != -1) continue;
-                        open.Push(m);
+                        add = closeArray[solvingNumber - 1][0];
+                        addNodes = NextNewLineNodes((Node)add);
+                        foreach (var m in addNodes)
+                        {
+                            if (open.IndexOf(m) != -1) continue;
+                            open.Push(m);
+                        }
                     }
                 }
 
@@ -117,12 +124,10 @@ namespace PuzzleSolving
                 close.Push(focus);
                 open.RemoveAt(0);
 
-                Node[] nextNodes = NextKeepLineNodes(focus);
+                nextNodes = NextKeepLineNodes(focus);
 
-                passNodes = 0;
                 foreach (Node m in nextNodes)
                 {
-                    passNodes++;
                     if ((nodeNum = close.ls.LastIndexOf(m)) != -1)
                     {
                         if (m.Score < close[nodeNum].Score)
@@ -145,7 +150,7 @@ namespace PuzzleSolving
                         lock (((ICollection)checkQueue).SyncRoot) checkQueue.Enqueue(m);
                     }
                 }
-                Console.WriteLine("op:" + open.Count + " cl:" + close.Count + " pass:" + passNodes + "/" + nextNodes.Count() + " f:" + focus.Score);
+                Console.WriteLine("op:" + open.Count + " cl:" + close.Count + " f:" + focus.Score);
             }
         }
 
