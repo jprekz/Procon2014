@@ -30,6 +30,7 @@ namespace ProconFileIO
             //writing after
             ProblemLocation = "/problem/";
 
+            //SubmitFormにしろと言われたけどこれでおk?->おk
             SubmitLocation = "/SubmitAnswer";
 
             FileSavePath = "C:\\Users\\" + Environment.UserName + "\\Desktop\\";
