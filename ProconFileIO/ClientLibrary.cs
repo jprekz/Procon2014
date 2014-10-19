@@ -25,8 +25,8 @@ namespace ProconFileIO
         public ClientLibrary()
         {
             
-            //ServerURL = "http://172.16.1.2";
-            ServerURL = "http://localhost";
+            ServerURL = "http://172.16.1.2";
+            //ServerURL = "http://localhost";
 
             //writing after
             ProblemLocation = "/problem/";
@@ -97,8 +97,8 @@ namespace ProconFileIO
 
             using (var webclient = new WebClient())
             {
-                //string playerid = "3965475495";
-                string playerid = "1";
+                string playerid = "3965475495";
+                //string playerid = "1";
                 using (var wc = new WebClient())
                 {
                     var AnswerCollention = new NameValueCollection();

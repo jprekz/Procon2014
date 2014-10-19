@@ -181,6 +181,7 @@ namespace ProgramingContestImageSort
                     }
                 }
             }
+
             return sortedPiece;
         }
     }
