@@ -30,11 +30,6 @@ namespace ProconSortUI
             decide.Enabled = false;
         }
 
-        public void decideEnabled()
-        {
-            decide.Enabled = true;
-        }
-
         private void fileSelect_Click(object sender, EventArgs e)
         {
             cl = new ClientLibrary();
@@ -58,6 +53,7 @@ namespace ProconSortUI
             {
                 piecesline +=  "," + sortedpiece[i].ToString() + " " + sortedpiece[i + 1].ToString();
             }
+            sortedpiece = lastone(sortedpiece);
             pictureBox1.Image = ir.resize(ic.ppmCut(sortedpiece),500);
             this.enableddecide(sortedpiece);
             pictureBox1.Width = pictureBox1.Image.Width;
@@ -148,6 +144,40 @@ namespace ProconSortUI
             {
                 this.decide.Enabled = true;
             }
+        }
+
+        public byte[] lastone(byte[] sortedPiece)
+        {
+            var notfound = 0;
+            byte[] nopiece = new byte[2];
+            var spiece = sortedPiece;
+            for (int i = 2; i < sortedPiece.Length; i += 2)
+            {
+                if (sortedPiece[i] == 16)
+                {
+                    notfound++;
+                    nopiece[0] = (byte)(((i - 2) / 2) % sortedPiece[0]);
+                    nopiece[1] = (byte)(((i - 2) / 2) / sortedPiece[0]);
+                }
+            }
+
+            if (notfound == 1)
+            {
+                bool[] pieces = new bool[sortedPiece[0] * sortedPiece[1]];
+                for (int i = 2; i < sortedPiece.Length; i += 2)
+                {
+                    if(sortedPiece[i] != 16)pieces[(i - 2)/2] = true;
+                }
+                for (int i = 0; i < pieces.Length; i++)
+                {
+                    if (!pieces[i])
+                    {
+                        spiece[(nopiece[1]*sortedPiece[0]+nopiece[1])*2+2] = (byte)(i % sortedPiece[0] - 1);
+                        spiece[(nopiece[1]*sortedPiece[0]+nopiece[1])*2+3] = (byte)(i / sortedPiece[0] - 1);
+                    }
+                }
+            }
+            return spiece;
         }
 
         private void decide_Click(object sender, EventArgs e)
