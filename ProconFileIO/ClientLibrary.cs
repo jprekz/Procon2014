@@ -17,6 +17,8 @@ namespace ProconFileIO
         string ProblemLocation;
         string SubmitLocation;
         string ProblemFileNameFormat;
+        string playerid;
+
         string FileName;
         int PloblemID;
 
@@ -26,11 +28,11 @@ namespace ProconFileIO
         {
             
             ServerURL = "http://172.16.1.2";
-            //ServerURL = "http://localhost";
 
             //writing after
             ProblemLocation = "/problem/";
 
+            //SubmitFormにしろと言われたけどこれでおk?->おk
             SubmitLocation = "/SubmitAnswer";
 
             FileSavePath = "C:\\Users\\" + Environment.UserName + "\\Desktop\\";
@@ -48,13 +50,6 @@ namespace ProconFileIO
 
             var URI = ServerURL + ProblemLocation + FileName;
 
-            if (File.Exists(FileSavePath + FileName) == true)
-            {
-                return FileSavePath + FileName;
-            }
-
-            else
-            {
                 using (var webclient = new WebClient())
                 {
                     //本番用URL
@@ -79,7 +74,6 @@ namespace ProconFileIO
                         return err.Status.ToString();
                     }
                 }
-            }
 
             return FileSavePath + FileName;
         }
@@ -98,7 +92,6 @@ namespace ProconFileIO
             using (var webclient = new WebClient())
             {
                 string playerid = "3965475495";
-                //string playerid = "1";
                 using (var wc = new WebClient())
                 {
                     var AnswerCollention = new NameValueCollection();

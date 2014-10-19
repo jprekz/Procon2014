@@ -16,6 +16,7 @@ namespace Procon2014
 {
     public partial class Form1 : Form
     {
+        private bool aStarKill = false; 
         private IPuzzleSolving p1;
         private IPuzzleSolving p2;
         private System.Diagnostics.Stopwatch sw;
@@ -38,6 +39,8 @@ namespace Procon2014
                 }
             }
 
+            if (cells.Length > 10) aStarKill = true;
+
             p1 = new AStar(cells, PpmData.picSetRepeat, PpmData.picSetRate, PpmData.picMoveRate);
             p2 = new ParallelSearch(cells, PpmData.picSetRepeat, PpmData.picSetRate, PpmData.picMoveRate);
             ProconSortUI.Main.cl.ReturnRespons += ReturnSubmitAnswer;
@@ -52,7 +55,7 @@ namespace Procon2014
             p2.FindBestAnswer += p2_FindBestAnswer;
             p1.FindBetterAnswer += p1_FindBetterAnswer;
             p2.FindBetterAnswer += p2_FindBetterAnswer;
-            p1.Start();
+            if (!aStarKill) p1.Start();
             p2.Start();
             this.submit1.Enabled = true;
             this.submit2.Enabled = true;
@@ -94,6 +97,10 @@ namespace Procon2014
                 this.textBox1.Text += Environment.NewLine;
                 this.textBox1.Text += p1.GetAnswer();
                 p1.Stop();
+                if (this.submit1.Enabled)
+                {
+                    submit1_Click(this, new EventArgs());
+                }
             });
         }
 
@@ -125,6 +132,10 @@ namespace Procon2014
                 this.textBox2.Text = "Not best " + sw.Elapsed;
                 this.textBox2.Text += Environment.NewLine;
                 this.textBox2.Text += p2.GetAnswer();
+                if ((p2.GetAnswer().Diffs == 0) && (this.submit2.Enabled))
+                {
+                    submit2_Click(this, new EventArgs());
+                }
             });
         }
         

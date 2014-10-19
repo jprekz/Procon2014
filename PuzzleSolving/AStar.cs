@@ -127,8 +127,8 @@ namespace PuzzleSolving
                 {
                     lock (((ICollection)checkQueue).SyncRoot) n = checkQueue.Dequeue();
                     if ((ans == null) ||
-                        (ans.Heuristic > n.Heuristic) ||
-                        ((ans.Heuristic == n.Heuristic) && (ans.Score > n.Score)))
+                        (GetAnswerDiffs(ans) > GetAnswerDiffs(n)) ||
+                        ((GetAnswerDiffs(ans) == GetAnswerDiffs(n)) && (ans.Score > n.Score)))
                     {
                         ans = n;
                         OnFindBetterAnswer(new EventArgs());
