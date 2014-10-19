@@ -105,7 +105,7 @@ namespace PuzzleSolving
                     {
                         break;
                     }
-                    Thread.Sleep(100);
+                    Thread.Sleep(startCells.Length * 150 / selectMax);
                 }
             }
 
