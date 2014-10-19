@@ -25,6 +25,16 @@ namespace ProconSortUI
         public byte[] selectpiece = new byte[2];
         Pieces piecesform;
 
+        private void Main_Load(object sender, EventArgs e)
+        {
+            decide.Enabled = false;
+        }
+
+        public void decideEnabled()
+        {
+            decide.Enabled = true;
+        }
+
         private void fileSelect_Click(object sender, EventArgs e)
         {
             cl = new ClientLibrary();
@@ -49,6 +59,7 @@ namespace ProconSortUI
                 piecesline +=  "," + sortedpiece[i].ToString() + " " + sortedpiece[i + 1].ToString();
             }
             pictureBox1.Image = ir.resize(ic.ppmCut(sortedpiece),500);
+            this.enableddecide(sortedpiece);
             pictureBox1.Width = pictureBox1.Image.Width;
             pictureBox1.Height = pictureBox1.Image.Height;
             piecesform.Show(this);
@@ -102,6 +113,7 @@ namespace ProconSortUI
                 drawpiece[pieceposition + i] = selectpiece[i];
             }
             pictureBox1.Image = ir.resize(ic.ppmCut(drawpiece), 500);
+            enableddecide(drawpiece);
             pieceformDraw(drawpiece);
         }
 
@@ -110,6 +122,31 @@ namespace ProconSortUI
             var ir = new ImageResize();
             var ic = new ImageCreate();
             pictureBox1.Image = ir.resize(ic.ppmCut(sortedpiece), 500);
+            enableddecide(sortedpiece);
+        }
+
+        public void enableddecide(byte[] sortedpiece)
+        {
+            var isfound = true;
+            var isnotassign = true;
+            for (int i = 2; i < sortedpiece.Length; i+=2)
+            {
+                if (sortedpiece[i] == 16)
+                {
+                    isfound = false;
+                }
+                for (int j = 2; j < sortedpiece.Length; j+=2)
+                {
+                    if (sortedpiece[i] == sortedpiece[j] && sortedpiece[i+1] == sortedpiece[j+1] && i != j)
+                    {
+                        isnotassign = false;
+                    }
+                }
+            }
+            if (isfound && isnotassign)
+            {
+                this.decide.Enabled = true;
+            }
         }
 
         private void decide_Click(object sender, EventArgs e)
@@ -211,5 +248,6 @@ namespace ProconSortUI
         {
             pieceLotate(e.KeyData);
         }
+
     }
 }

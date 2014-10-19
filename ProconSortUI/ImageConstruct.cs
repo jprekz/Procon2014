@@ -9,9 +9,6 @@ namespace ProgramingContestImageSort
 {
     public class ImageConstruct
     {
-        private int[][][] pieceData = null;
-        private Dictionary<int,int[][]> pieceDictionary;
-        private byte[] sortedPiece;
         public byte[] Construct(int[][] edgeCompareValue,int leftvalue)
         {
             return pieceCreate(getEdges(edgeCompareValue),leftvalue);

@@ -103,6 +103,7 @@ namespace ProconSortUI
                 }
             }
             bmpplus.EndAccess();
+
             return bmp;
         }
     }
