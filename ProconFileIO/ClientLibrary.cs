@@ -26,11 +26,11 @@ namespace ProconFileIO
 
         public ClientLibrary()
         {
-            
-            ServerURL = "http://172.16.1.2";
+
+            ServerURL = "http://procon2014-practice.oknct-ict.org";
 
             //writing after
-            ProblemLocation = "/problem/";
+            ProblemLocation = "/problem/ppm/";
 
             //SubmitFormにしろと言われたけどこれでおk?->おk
             SubmitLocation = "/SubmitAnswer";
@@ -48,7 +48,7 @@ namespace ProconFileIO
 
             FileName = string.Format(ProblemFileNameFormat, Ploblemid);
 
-            var URI = ServerURL + ProblemLocation + FileName;
+            var URI = ServerURL + ProblemLocation + Ploblemid;
 
                 using (var webclient = new WebClient())
                 {
@@ -91,7 +91,7 @@ namespace ProconFileIO
 
             using (var webclient = new WebClient())
             {
-                string playerid = "3965475495";
+                string playerid = "1";
                 using (var wc = new WebClient())
                 {
                     var AnswerCollention = new NameValueCollection();
