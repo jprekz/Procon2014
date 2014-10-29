@@ -97,16 +97,23 @@ namespace PuzzleSolving
                     open.Push(n);
                 }
             }
+            else
+            {
+                while (true)
+                {
+                    if (closeArray[solvingNumber - 1].Count != 0)
+                    {
+                        break;
+                    }
+                    Thread.Sleep(startCells.Length * 150 / selectMax);
+                }
+            }
+
 
             while (true)
             {
                 if (solvingNumber != 0)
                 {
-                    if (closeArray[solvingNumber - 1].Count == 0)
-                    {
-                        Thread.Sleep(100);
-                        continue;
-                    }
                     if (closeArray[solvingNumber - 1][0] != add)
                     {
                         add = closeArray[solvingNumber - 1][0];
